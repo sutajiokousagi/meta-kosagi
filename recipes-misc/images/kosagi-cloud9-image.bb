@@ -1,6 +1,6 @@
 # Image with cloud9 ide and hw tools installed
 
-require hardware-bringup-image.bb
+require kovan-bringup-image.bb
 
 IMAGE_INSTALL += " \
 	systemd-analyze \

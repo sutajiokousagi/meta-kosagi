@@ -3,7 +3,7 @@ SOC_FAMILY = "pxa168"
 require conf/machine/include/tune-arm926ejs.inc
 
 # Increase this everytime you change something in the kernel
-MACHINE_KERNEL_PR = "r0"
+MACHINE_KERNEL_PR = "r4"
 
 
 PREFERRED_PROVIDER_virtual/kernel = "linux-silvermoon"
@@ -15,7 +15,7 @@ SERIAL_CONSOLE = "115200 ttyS0"
 #UBOOT_ENTRYPOINT = "0x80008000"
 #UBOOT_LOADADDRESS = "0x80008000"
 
-EXTRA_IMAGEDEPENDS += "u-boot chumby-blobs-silvermoon makedisk-native config-util-native"
+EXTRA_IMAGEDEPENDS += "u-boot silvermoon-blobs makedisk-native config-util-native regutil compat-wireless-ath9k-htc ath9k-firmware"
 
 # Match current Silvermoon devices
 IMAGE_ROOTFS_SIZE = "512000"
