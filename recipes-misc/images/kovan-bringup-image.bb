@@ -16,7 +16,6 @@ IMAGE_INSTALL += " \
 	rt-tests \
 	evtest \
 	bc \
-	compat-wireless-ath9k-htc ath9k-firmware regutil \
 	strace gdb \
 "
 export IMAGE_BASENAME = "hw-bringup"
