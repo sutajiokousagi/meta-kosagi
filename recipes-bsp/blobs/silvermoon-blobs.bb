@@ -2,6 +2,7 @@ DESCRIPTION = "Silvermoon boot blobs - miscellaneous binary blobs"
 HOMEPAGE = "http://www.kosagi.com/"
 AUTHOR = "Sean Cross"
 LICENSE = "BSD"
+PR = "r0"
 
 COMPATIBLE_MACHINE = "kovan"
 
@@ -15,9 +16,6 @@ PACKAGE_ARCH = "${MACHINE}"
 do_compile() {
     true
 }
-
-# obm.bin is a ROM, with no gnu_hash.
-INSANE_SKIP_${PN} = True
 
 FILES_${PN} = "/boot"
 
