@@ -2,7 +2,7 @@ DESCRIPTION = "SOC register mananagement program"
 HOMEPAGE = "http://www.kosagi.com/"
 AUTHOR = "Sean Cross"
 LICENSE = "BSD"
-PR = "r0"
+PR = "r1"
 
 SRC_URI = "git://github.com/sutajiokousagi/utils.git"
 SRCREV = "b8bf6e289bea1be591e174123420266580fe3826"
@@ -14,7 +14,7 @@ CNPLATFORM = "unknown"
 CNPLATFORM_kovan = "silvermoon"
 
 do_compile() {
-    ${CC} ${CFLAGS} ${LDFLAGS} regutil.c -o regutil
+    ${CC} ${CFLAGS} ${LDFLAGS} -DCNPLATFORM_silvermoon regutil.c -o regutil
 }
 
 do_install() {
