@@ -234,8 +234,8 @@ EXTRA_OEMAKE = "${PARALLEL_MAKE} "
 
 do_install_append() {
 #	oe_runmake headers_install INSTALL_HDR_PATH=${D}${exec_prefix}/src/linux-${KERNEL_VERSION} ARCH=$ARCH
-	mkdir -p ${D}${exec_prefix}/src/linux-${KERNEL_VERSION}
-	cp -r .  ${D}${exec_prefix}/src/linux-${KERNEL_VERSION}
+	mkdir -p ${D}/kernel
+	cp -r .  ${D}/kernel
 }
 
 PACKAGES =+ "kernel-headers"
