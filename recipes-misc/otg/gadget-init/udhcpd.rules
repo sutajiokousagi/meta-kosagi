@@ -1,0 +1,2 @@
+SUBSYSTEM=="net",ACTION=="add",KERNEL=="usb0",RUN+="/sbin/ifconfig usb0 10.0.88.4 netmask 255.255.255.0",RUN+="/bin/systemctl start udhcpd.service"
+SUBSYSTEM=="net",ACTION=="remove",KERNEL=="usb0",RUN+="/bin/systemctl stop udhcpd.service"

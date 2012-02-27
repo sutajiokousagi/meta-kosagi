@@ -20,6 +20,7 @@ IMAGE_INSTALL += " \
 	strace gdb \
 	bash procps \
 	kexec \
+	gadget-init \
 "
 export IMAGE_BASENAME = "hw-bringup"
 
