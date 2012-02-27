@@ -15,8 +15,10 @@ IMAGE_INSTALL += " \
 	lmbench \
 	rt-tests \
 	evtest \
+	systemd-analyze \
 	bc \
 	strace gdb \
+	bash procps \
 "
 export IMAGE_BASENAME = "hw-bringup"
 
