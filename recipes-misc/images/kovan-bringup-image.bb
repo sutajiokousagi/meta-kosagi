@@ -19,6 +19,7 @@ IMAGE_INSTALL += " \
 	bc \
 	strace gdb \
 	bash procps \
+	kexec \
 "
 export IMAGE_BASENAME = "hw-bringup"
 
