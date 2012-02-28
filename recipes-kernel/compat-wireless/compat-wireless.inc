@@ -5,13 +5,14 @@ HOMEPAGE = "http://wireless.kernel.org/en/users/Download"
 SECTION = "kernel/modules"
 LICENSE = "GPL"
 RDEPENDS_${PN} = "wireless-tools"
-PR = "r1"
+PR = "r2"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0;md5=801f80980d171dd6425610833a22dbe6"
 
 COMPAT_WIRELESS_VERSION = "2012-01-01"
 
 SRC_URI = "http://wireless.kernel.org/download/compat-wireless-2.6/compat-wireless-${COMPAT_WIRELESS_VERSION}.tar.bz2 \
 	"
+SRC_URI_append-kovan = "file://remove-irq-compat.patch"
 
 TAG = "${@'${COMPAT_WIRELESS_VERSION}'.replace('-', '')}"
 PV = "0.${TAG}"
