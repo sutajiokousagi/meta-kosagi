@@ -21,8 +21,9 @@ IMAGE_INSTALL += " \
 	bash procps \
 	kexec \
 	gadget-init \
-	openssh-scp \
+	openssh-scp openssh-ssh \
 	kovan-util \
+	udev-extra-rules \
 "
 export IMAGE_BASENAME = "hw-bringup"
 
