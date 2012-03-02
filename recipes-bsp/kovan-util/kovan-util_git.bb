@@ -2,7 +2,7 @@ DESCRIPTION = "Kovan utilities"
 HOMEPAGE = "http://www.kosagi.com/"
 AUTHOR = "bunnie"
 LICENSE = "BSD"
-PR = "r1"
+PR = "r2"
 
 SRC_URI = "git://github.com/bunnie/kovan-util.git"
 SRCREV = "6956658f26c056041d7137d0633796bfeab57dec"
@@ -15,3 +15,6 @@ do_install() {
     install -d ${D}${base_libdir}/udev/rules.d
     install -m 0644 ${S}/helpers/kovan-xilinx.rules ${D}${base_libdir}/udev/rules.d/45-kovan-xilinx.rules
 }
+
+FILES_${PN} = "${bindir} ${sbindir}"
+FILES_${PN} += "${base_libdir}/udev/rules.d/"
