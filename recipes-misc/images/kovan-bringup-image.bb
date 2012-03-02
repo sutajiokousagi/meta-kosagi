@@ -24,6 +24,7 @@ IMAGE_INSTALL += " \
 	openssh-scp openssh-ssh \
 	kovan-util \
 	udev-extra-rules \
+        python-fcntl \
 "
 export IMAGE_BASENAME = "hw-bringup"
 
