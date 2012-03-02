@@ -10,9 +10,6 @@ S = "${WORKDIR}/git"
 
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=8bef8e6712b1be5aa76af1ebde9d6378"
 
-CNPLATFORM = "unknown"
-CNPLATFORM_kovan = "silvermoon"
-
 do_install() {
     install -d ${D}/${sbindir}
     install -d ${D}${base_libdir}/udev/rules.d

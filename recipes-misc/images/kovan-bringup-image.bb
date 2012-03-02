@@ -2,6 +2,8 @@
 
 require systemd-image.bb
 
+DEPENDS += "kovan-util"
+
 IMAGE_INSTALL += " \
 	usbutils \
 	i2c-tools \
