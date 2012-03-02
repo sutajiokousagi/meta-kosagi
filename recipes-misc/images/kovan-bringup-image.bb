@@ -22,6 +22,7 @@ IMAGE_INSTALL += " \
 	kexec \
 	gadget-init \
 	openssh-scp \
+	kovan-util \
 "
 export IMAGE_BASENAME = "hw-bringup"
 
