@@ -15,6 +15,6 @@ CNPLATFORM_kovan = "silvermoon"
 
 do_install() {
     install -d ${D}/${sbindir}
-#    install -m 0755 ${S}/helpers/kovan-xilinx.rules ${D}/lib/udev/rules.d/45-kovan-xilinx.rules
-    install -m 0644 ${S}/helpers/kovan-xilinx.rules ${D}/lib/udev/rules.d/45-kovan-xilinx.rules
+    install -d ${D}${base_libdir}/udev/rules.d
+    install -m 0644 ${S}/helpers/kovan-xilinx.rules ${D}${base_libdir}/udev/rules.d/45-kovan-xilinx.rules
 }
