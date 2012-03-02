@@ -23,6 +23,7 @@ IMAGE_INSTALL += " \
 	gadget-init \
 	openssh-scp \
 	kovan-util \
+        python-fcntl \   # needed for fpga interaction scripts
 "
 export IMAGE_BASENAME = "hw-bringup"
 
