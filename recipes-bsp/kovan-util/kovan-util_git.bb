@@ -2,7 +2,7 @@ DESCRIPTION = "Kovan utilities"
 HOMEPAGE = "http://www.kosagi.com/"
 AUTHOR = "bunnie"
 LICENSE = "BSD"
-PR = "r3"
+PR = "r4"
 
 SRC_URI = "git://github.com/bunnie/kovan-util.git"
 SRCREV = "6956658f26c056041d7137d0633796bfeab57dec"
@@ -35,7 +35,7 @@ do_install() {
     install -d ${D}${base_libdir}/systemd/system
     install -d ${D}${base_libdir}/systemd/system/basic.target.wants/
     install -m 0644 ${S}/helpers/kovan_xilinx.service ${D}${base_libdir}/systemd/system/
-    ln -s ${D}${base_libdir}/systemd/system/kovan_xilinx.service ${D}${base_libdir}/systemd/system/basic.target.wants/kovan_xilinx.sevice
+    ln -sf ../kovan_xilinx.service ${D}${base_libdir}/systemd/system/basic.target.wants/
 }
 
 FILES_${PN} = "${bindir} ${sbindir}"
