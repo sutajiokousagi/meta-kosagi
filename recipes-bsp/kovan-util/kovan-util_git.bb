@@ -2,7 +2,7 @@ DESCRIPTION = "Kovan utilities"
 HOMEPAGE = "http://www.kosagi.com/"
 AUTHOR = "bunnie"
 LICENSE = "BSD"
-PR = "r2"
+PR = "r3"
 
 SRC_URI = "git://github.com/bunnie/kovan-util.git"
 SRCREV = "6956658f26c056041d7137d0633796bfeab57dec"
