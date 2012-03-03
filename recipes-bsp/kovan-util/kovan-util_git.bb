@@ -12,7 +12,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=8bef8e6712b1be
 
 do_compile() {
     cd ${S}
-    ${CC} ${CFLAGS} ${LDFLAGS} src/jtag.c -o jtag-fpga-idcode
+    ${CC} ${CFLAGS} ${LDFLAGS} ${WORKDIR}/git/src/jtag.c -o jtag-fpga-idcode
 }
 
 do_install() {
