@@ -5,15 +5,10 @@ LICENSE = "BSD"
 PR = "r4"
 
 SRC_URI = "git://github.com/bunnie/kovan-util.git"
-SRCREV = "6956658f26c056041d7137d0633796bfeab57dec"
+SRCREV = "5b6f81f70ecc14d99a052720c8fe6b576fd96996"
 S = "${WORKDIR}/git"
 
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=8bef8e6712b1be5aa76af1ebde9d6378"
-
-do_compile() {
-    cd ${S}
-    ${CC} ${CFLAGS} ${LDFLAGS} ${WORKDIR}/git/src/jtag.c -o jtag-fpga-idcode
-}
 
 do_install() {
     install -d ${D}${sbindir}
