@@ -25,6 +25,7 @@ IMAGE_INSTALL += " \
 	kovan-util \
 	udev-extra-rules \
         python-fcntl \
+        python-subprocess \
 "
 export IMAGE_BASENAME = "hw-bringup"
 
