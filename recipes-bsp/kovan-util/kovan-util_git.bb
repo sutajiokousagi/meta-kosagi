@@ -10,6 +10,11 @@ S = "${WORKDIR}/git"
 
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=8bef8e6712b1be5aa76af1ebde9d6378"
 
+do_compile() {
+    cd ${S}
+    ${CC} ${CFLAGS} ${LDFLAGS} src/jtag.c -o jtag-fpga-idcode
+}
+
 do_install() {
     install -d ${D}${sbindir}
     # fpga module devnode udev rules
@@ -19,14 +24,24 @@ do_install() {
     # FPGA configuration
     install -m 0755 ${S}/jtag-fpga-idcode ${D}${sbindir}
     install -m 0755 ${S}/fpga-config.py ${D}${sbindir}
+
+    # FPGA firmware
+    install -d ${D}${base_libdir}/firmware
     install -m 0644 ${S}/firmware/kovan-lx45.bit ${D}${base_libdir}/firmware/
     install -m 0644 ${S}/firmware/kovan-lx9.bit ${D}${base_libdir}/firmware/
+
+    #systemd rules
+    install -d ${D}${base_libdir}/systemd
+    install -d ${D}${base_libdir}/systemd/system
+    install -d ${D}${base_libdir}/systemd/system/basic.target.wants/
+    install -m 0644 ${S}/helpers/kovan_xilinx.service ${D}${base_libdir}/systemd/system/
+    ln -s ${D}${base_libdir}/systemd/system/kovan_xilinx.service ${D}${base_libdir}/systemd/system/basic.target.wants/kovan_xilinx.sevice
 }
 
 FILES_${PN} = "${bindir} ${sbindir}"
 FILES_${PN} += "${base_libdir}/udev/rules.d/"
 FILES_${PN} += "${base_libdir}/firmware/"
+FILES_${PN} += "${base_libdir}/systemd"
+FILES_${PN} += "${base_libdir}/systemd/system"
+FILES_${PN} += "${base_libdir}/systemd/system/basic.target.wants"
 
-
-# need to install symlink .wants in /lib/systemd/system/basic.target.wants/
-# and install the file itself in /lib/systemd/system/
