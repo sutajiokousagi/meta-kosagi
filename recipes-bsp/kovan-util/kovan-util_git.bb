@@ -17,10 +17,10 @@ do_install() {
     install -m 0644 ${S}/helpers/kovan-xilinx.rules ${D}${base_libdir}/udev/rules.d/45-kovan-xilinx.rules
 
     # FPGA configuration
-    install -m 0755 jtag-fpga-idcode ${D}${sbindir}
-    install -m 0755 fpga-config.py ${D}${sbindir}
-    install -m 0644 firmware/kovan-lx45.bit ${D}${base_libdir}/firmware/
-    install -m 0644 firmware/kovan-lx9.bit ${D}${base_libdir}/firmware/
+    install -m 0755 ${S}/jtag-fpga-idcode ${D}${sbindir}
+    install -m 0755 ${S}/fpga-config.py ${D}${sbindir}
+    install -m 0644 ${S}/firmware/kovan-lx45.bit ${D}${base_libdir}/firmware/
+    install -m 0644 ${S}/firmware/kovan-lx9.bit ${D}${base_libdir}/firmware/
 }
 
 FILES_${PN} = "${bindir} ${sbindir}"
