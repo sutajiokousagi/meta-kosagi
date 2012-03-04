@@ -26,6 +26,7 @@ IMAGE_INSTALL += " \
 	udev-extra-rules \
         python-fcntl \
         python-subprocess \
+	python-ctypes \
 "
 export IMAGE_BASENAME = "hw-bringup"
 
