@@ -2,10 +2,10 @@ DESCRIPTION = "Kovan utilities"
 HOMEPAGE = "http://www.kosagi.com/"
 AUTHOR = "bunnie"
 LICENSE = "BSD"
-PR = "r5"
+PR = "r6"
 
 SRC_URI = "git://github.com/bunnie/kovan-util.git"
-SRCREV = "5b6f81f70ecc14d99a052720c8fe6b576fd96996"
+SRCREV = "2794c7b7091db32925a9cbda71e6c69bf44982f2"
 S = "${WORKDIR}/git"
 
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=8bef8e6712b1be5aa76af1ebde9d6378"
@@ -24,6 +24,7 @@ do_install() {
     # FPGA configuration
     install -m 0755 ${S}/jtag-fpga-idcode ${D}${sbindir}
     install -m 0755 ${S}/fpga-config.py ${D}${sbindir}
+    install -m 0755 ${S}/fpga-reset.py ${D}${sbindir}
 
     # FPGA firmware
     install -d ${D}${base_libdir}/firmware
