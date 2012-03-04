@@ -2,10 +2,10 @@ DESCRIPTION = "Kovan utilities"
 HOMEPAGE = "http://www.kosagi.com/"
 AUTHOR = "bunnie"
 LICENSE = "BSD"
-PR = "r6"
+PR = "r7"
 
 SRC_URI = "git://github.com/bunnie/kovan-util.git"
-SRCREV = "2794c7b7091db32925a9cbda71e6c69bf44982f2"
+SRCREV = "03887f531b4324d3df624de1fa8c0e29aee2618f"
 S = "${WORKDIR}/git"
 
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=8bef8e6712b1be5aa76af1ebde9d6378"
@@ -37,6 +37,9 @@ do_install() {
     install -d ${D}${base_libdir}/systemd/system/basic.target.wants/
     install -m 0644 ${S}/helpers/kovan_xilinx.service ${D}${base_libdir}/systemd/system/
     ln -sf ../kovan_xilinx.service ${D}${base_libdir}/systemd/system/basic.target.wants/
+    
+    #demo files
+    install -m 0755 ${S}/kovan-demo.py ${D}${sbindir}
 }
 
 FILES_${PN} = "${bindir} ${sbindir}"
