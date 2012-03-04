@@ -27,6 +27,7 @@ IMAGE_INSTALL += " \
         python-fcntl \
         python-subprocess \
 	python-ctypes \
+	python-terminal \
 "
 export IMAGE_BASENAME = "hw-bringup"
 
