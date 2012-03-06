@@ -2,10 +2,10 @@ DESCRIPTION = "Kovan utilities"
 HOMEPAGE = "http://www.kosagi.com/"
 AUTHOR = "bunnie"
 LICENSE = "BSD"
-PR = "r8"
+PR = "r9"
 
 SRC_URI = "git://github.com/bunnie/kovan-util.git"
-SRCREV = "e36985d83768ee50a1f38b354ca7b85231df8409"
+SRCREV = "4afdacca7f3ddbb48749fd247caaaa03d005f2a5"
 S = "${WORKDIR}/git"
 
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=8bef8e6712b1be5aa76af1ebde9d6378"
