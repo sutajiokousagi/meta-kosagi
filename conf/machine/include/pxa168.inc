@@ -3,7 +3,7 @@ SOC_FAMILY = "pxa168"
 require conf/machine/include/tune-arm926ejs.inc
 
 # Increase this everytime you change something in the kernel
-MACHINE_KERNEL_PR = "r22"
+MACHINE_KERNEL_PR = "r23"
 
 
 PREFERRED_PROVIDER_virtual/kernel = "linux-silvermoon"
