@@ -16,10 +16,7 @@ IMAGE_INSTALL += " \
 	rt-tests \
 	evtest \
 	systemd-analyze \
-	bc \
-	strace gdb \
-	bash procps \
-	kexec \
+	strace gdb lsof bc bash procps kexec \
 	gadget-init \
 	openssh-scp openssh-ssh \
 	kovan-util \
