@@ -2,9 +2,10 @@ DESCRIPTION = "Kovan utilities"
 HOMEPAGE = "http://www.kosagi.com/"
 AUTHOR = "bunnie"
 LICENSE = "BSD"
-PR = "r10"
+PR = "r13"
 
-SRC_URI = "git://github.com/bunnie/kovan-util.git"
+SRC_URI = "git://github.com/bunnie/kovan-util.git \
+           file://logo.raw565.gz"
 SRCREV = "4afdacca7f3ddbb48749fd247caaaa03d005f2a5"
 S = "${WORKDIR}/git"
 
@@ -13,6 +14,11 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=8bef8e6712b1be
 do_compile() {
     cd ${S}
     ${CC} ${CFLAGS} ${LDFLAGS} src/jtag.c -o jtag-fpga-idcode
+    cd ${WORKDIR}
+    if [ -e logo.raw565 ]
+    then
+       gzip logo.raw565
+    fi
 }
 
 do_install() {
@@ -30,6 +36,11 @@ do_install() {
     install -d ${D}${base_libdir}/firmware
     install -m 0644 ${S}/firmware/kovan-lx45.bit ${D}${base_libdir}/firmware/
     install -m 0644 ${S}/firmware/kovan-lx9.bit ${D}${base_libdir}/firmware/
+    install -m 0644 ${WORKDIR}/logo.raw565.gz ${D}${base_libdir}/firmware/
+    install -d ${DEPLOY_DIR_IMAGE}
+    install -m 0644 ${S}/firmware/kovan-lx45.bit ${DEPLOY_DIR_IMAGE}/
+    install -m 0644 ${S}/firmware/kovan-lx9.bit ${DEPLOY_DIR_IMAGE}/
+    install -m 0644 ${WORKDIR}/logo.raw565.gz ${DEPLOY_DIR_IMAGE}/
 
     #systemd rules
     install -d ${D}${base_libdir}/systemd
@@ -49,3 +60,8 @@ FILES_${PN} += "${base_libdir}/systemd"
 FILES_${PN} += "${base_libdir}/systemd/system"
 FILES_${PN} += "${base_libdir}/systemd/system/basic.target.wants"
 
+pkg_postinst_${PN}_append() {
+	config_util --cmd=putblock --dev=/dev/mmcblk0p1 --block=LX9 < ${base_libdir}/firmware/kovan-lx9.bit
+	config_util --cmd=putblock --dev=/dev/mmcblk0p1 --block=LX45 < ${base_libdir}/firmware/kovan-lx45.bit
+	config_util --cmd=putblock --dev=/dev/mmcblk0p1 --block=logo < ${base_libdir}/firmware/logo.raw565.gz
+}
