@@ -11,7 +11,7 @@ MULTI_CONFIG_BASE_SUFFIX = ""
 BRANCH = "kovan"
 
 COMPATIBLE_MACHINE = "(kovan)"
-SRCREV = "e8e57f9cd6dc0735d505fd04e26da1d0430071fc"
+SRCREV = "f9f85c61d9eea6986365837bc9e4efdb4fb731aa"
 
 SRC_URI += "git://github.com/sutajiokousagi/linux.git;branch=${BRANCH} \
 	file://defconfig"

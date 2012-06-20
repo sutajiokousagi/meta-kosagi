@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Linux kernel version: 2.6.34
-# Fri Apr 20 15:04:42 2012
+# Thu May 31 13:35:53 2012
 #
 CONFIG_ARM=y
 CONFIG_HAVE_PWM=y
@@ -361,7 +361,7 @@ CONFIG_ALIGNMENT_TRAP=y
 #
 CONFIG_ZBOOT_ROM_TEXT=0x0
 CONFIG_ZBOOT_ROM_BSS=0x0
-CONFIG_CMDLINE="root=/dev/mmcblk0p2 rootwait console=ttyS0,115200 mem=128M uart_dma sysrq_always_enabled rootfstype=ext3 rw consoleblank=0"
+CONFIG_CMDLINE="root=/dev/mmcblk0p2 rootwait console=ttyS0,115200 mem=128M uart_dma sysrq_always_enabled rootfstype=ext4 rw consoleblank=0"
 # CONFIG_XIP_KERNEL is not set
 CONFIG_KEXEC=y
 CONFIG_ATAGS_PROC=y
@@ -1723,7 +1723,7 @@ CONFIG_USB_LIBUSUAL=y
 # CONFIG_USB_LD is not set
 # CONFIG_USB_TRANCEVIBRATOR is not set
 # CONFIG_USB_IOWARRIOR is not set
-# CONFIG_USB_TEST is not set
+CONFIG_USB_TEST=m
 # CONFIG_USB_ISIGHTFW is not set
 CONFIG_USB_GADGET=y
 # CONFIG_USB_GADGET_DEBUG is not set
@@ -1741,7 +1741,7 @@ CONFIG_USB_GADGET_SELECTED=y
 # CONFIG_USB_GADGET_PXA27X is not set
 CONFIG_USB_GADGET_PXA_U2O=y
 CONFIG_USB_PXA_U2O=y
-# CONFIG_USB_COMPOSITE is not set
+CONFIG_USB_COMPOSITE=y
 CONFIG_USB_OTG_PXA3XX=y
 # CONFIG_USB_GADGET_S3C_HSOTG is not set
 # CONFIG_USB_GADGET_IMX is not set
