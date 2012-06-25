@@ -1,0 +1,14 @@
+[Unit]
+Description=X.Org graphical server
+After=local-fs.target
+
+[Service]
+ExecStart=/usr/bin/Xorg :0 -s 0
+#ExecStop=/usr/bin/killall kovan-test
+#ExecStopPost=/usr/bin/killall Xorg
+#RemainAfterExit=no
+#Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
