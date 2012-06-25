@@ -3,7 +3,7 @@ SOC_FAMILY = "pxa168"
 require conf/machine/include/tune-arm926ejs.inc
 
 # Increase this everytime you change something in the kernel
-MACHINE_KERNEL_PR = "r31"
+MACHINE_KERNEL_PR = "r35"
 
 
 PREFERRED_PROVIDER_virtual/kernel = "linux-silvermoon"
@@ -18,7 +18,7 @@ SERIAL_CONSOLE = "115200 ttyS0"
 EXTRA_IMAGEDEPENDS += "u-boot silvermoon-blobs makedisk-native config-util-native regutil compat-wireless-ath9k-htc ath9k-firmware"
 
 # Match current Silvermoon devices
-IMAGE_ROOTFS_SIZE = "512000"
+IMAGE_ROOTFS_SIZE = "128000"
 
 IMAGE_POSTPROCESS_COMMAND += "kosagi_make_rom;"
 
