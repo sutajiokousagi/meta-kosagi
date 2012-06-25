@@ -18,7 +18,7 @@ SERIAL_CONSOLE = "115200 ttyS0"
 EXTRA_IMAGEDEPENDS += "u-boot silvermoon-blobs makedisk-native config-util-native regutil compat-wireless-ath9k-htc ath9k-firmware"
 
 # Match current Silvermoon devices
-IMAGE_ROOTFS_SIZE = "128000"
+IMAGE_ROOTFS_SIZE = "400000"
 
 IMAGE_POSTPROCESS_COMMAND += "kosagi_make_rom;"
 
