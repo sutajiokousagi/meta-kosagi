@@ -5,10 +5,10 @@ SRC_URI = "git://github.com/sutajiokousagi/kovan-test-gui.git \
            file://kovan-factory-test.service \
            file://factory.config"
 
-SRCREV = "09e8f82e3197ae03b55565b236ff11e32cfb26fb"
+SRCREV = "92daca803a73185162efa982772fdec38fe623eb"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58"
-PR = "r2"
+PR = "r3"
 
 S = "${WORKDIR}/git"
 
