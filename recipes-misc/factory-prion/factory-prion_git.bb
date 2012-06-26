@@ -4,10 +4,10 @@ PACKAGE_ARCH = "all"
 
 SRC_URI = "git://github.com/sutajiokousagi/factory-prion.git"
 
-SRCREV = "c0064769073aac7f06983cc0452733f28a72af71"
+SRCREV = "249c742ba3993eb068a9788d52fe63b9cd16b970"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58"
-PR = "r0"
+PR = "r1"
 
 S = "${WORKDIR}/git/src"
 
