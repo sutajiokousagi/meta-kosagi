@@ -15,7 +15,7 @@ SERIAL_CONSOLE = "115200 ttyS0"
 #UBOOT_ENTRYPOINT = "0x80008000"
 #UBOOT_LOADADDRESS = "0x80008000"
 
-EXTRA_IMAGEDEPENDS += "u-boot silvermoon-blobs makedisk-native config-util-native regutil compat-wireless-ath9k-htc ath9k-firmware"
+EXTRA_IMAGEDEPENDS += "u-boot silvermoon-blobs makedisk-native config-util-native regutil compat-wireless-ath9k-htc ath9k-firmware factory-prion"
 
 # Match current Silvermoon devices
 IMAGE_ROOTFS_SIZE = "400000"
@@ -62,5 +62,16 @@ kosagi_make_rom() {
     makedisk -o ${DEPLOY_DIR_IMAGE}/rom-${MACHINE}-${IMAGE_BASENAME}.img \
              -a 16M:0x53:${DEPLOY_DIR_IMAGE}/boot-${MACHINE}.bin \
              -a ${ROOTFS_SIZE}k:0x83:${DEPLOY_DIR_IMAGE}/${IMAGE_LINK_NAME}.ext3
+
+
+    # Make factory prion
+    cp ${DEPLOY_DIR_IMAGE}/rom-${MACHINE}-${IMAGE_BASENAME}.img ${DEPLOY_DIR_IMAGE}/prion/factory/
+    echo "export BURN_CONFIG=${MACHINE}-${IMAGE_BASENAME}" > ${DEPLOY_DIR_IMAGE}/prion/factory/config.vars
+    (cd ${DEPLOY_DIR_IMAGE}/prion/ && zip -r ../burner-${MACHINE}-${IMAGE_BASENAME} .; cd ..)
+    rm ${DEPLOY_DIR_IMAGE}/prion/factory/rom-${MACHINE}-${IMAGE_BASENAME}.img
+    
+    # Compress ROM image
     gzip ${DEPLOY_DIR_IMAGE}/rom-${MACHINE}-${IMAGE_BASENAME}.img
+
+
 }
