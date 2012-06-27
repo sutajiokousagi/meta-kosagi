@@ -2,11 +2,11 @@ DESCRIPTION = "Kovan utilities"
 HOMEPAGE = "http://www.kosagi.com/"
 AUTHOR = "bunnie"
 LICENSE = "BSD"
-PR = "r13"
+PR = "r14"
 
 SRC_URI = "git://github.com/bunnie/kovan-util.git \
            file://logo.raw565.gz"
-SRCREV = "4afdacca7f3ddbb48749fd247caaaa03d005f2a5"
+SRCREV = "4aaf9a13be2a3e81daf0648af903f4955d36eaf0"
 S = "${WORKDIR}/git"
 
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=8bef8e6712b1be5aa76af1ebde9d6378"
