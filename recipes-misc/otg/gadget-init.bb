@@ -41,7 +41,7 @@ PACKAGES =+ "${PN}-storage ${PN}-network ${PN}-udhcpd"
 FILES_${PN} = "${sysconfdir}/tmpfiles.d"
 
 FILES_${PN}-storage = "${base_libdir}/systemd/system/storage-gadget-init.service \
-                       ${base_libdir}/systemd/system/basic.target.wants/storage-gadget-init.service \
+                       ${base_libdir}/systemd/system/basic.target.wants/storage-gadget-init.service"
 
 FILES_${PN}-network = "${base_libdir}/systemd/system/network-gadget-init.service \
                        ${base_libdir}/systemd/system/basic.target.wants/network-gadget-init.service \
