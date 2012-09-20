@@ -12,7 +12,7 @@ COMPAT_WIRELESS_VERSION = "2012-01-01"
 
 SRC_URI = "http://wireless.kernel.org/download/compat-wireless-2.6/compat-wireless-${COMPAT_WIRELESS_VERSION}.tar.bz2 \
 	"
-SRC_URI_append-kovan = "file://remove-irq-compat.patch"
+SRC_URI_append_kovan = "file://remove-irq-compat.patch"
 
 TAG = "${@'${COMPAT_WIRELESS_VERSION}'.replace('-', '')}"
 PV = "0.${TAG}"
