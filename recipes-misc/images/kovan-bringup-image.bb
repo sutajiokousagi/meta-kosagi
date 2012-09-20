@@ -1,6 +1,5 @@
 # Image for assisting in hardware bringup
 
-
 require systemd-image.bb
 
 IMAGE_INSTALL += " \
@@ -21,10 +20,10 @@ IMAGE_INSTALL += " \
 	gadget-init \
 	openssh openssh-scp openssh-ssh \
 	kovan-util \
-	udev-extra-rules \
+	udev udev-extra-rules \
 	python-fcntl python-subprocess python-ctypes python-terminal \
         \
-	qt4-x11-free libqtgui4 libqtnetwork4 libicui18n xorg-minimal-fonts qt4-fonts liberation-fonts \
+	qt4-x11-free libqtgui4 libqtnetwork4 libicui18n xorg-minimal-fonts liberation-fonts \
 	qt4-plugin-bearer-connman \
 	kovan-factory-test \
 	\
