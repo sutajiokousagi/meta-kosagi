@@ -1,9 +1,4 @@
-# Image for assisting in hardware bringup
-
-
 require systemd-image.bb
-
-DEPENDS += "php lighttpd mysql5"
 
 IMAGE_INSTALL += " \
 	usbutils \
@@ -19,7 +14,7 @@ IMAGE_INSTALL += " \
 	rt-tests \
 	evtest \
 	systemd-analyze \
-	lighttpd php mysql5 \
+	lighttpd php php-cgi php-cli php-pear mysql5 \
 	strace gdb lsof bc bash procps kexec \
 	openssh openssh-scp openssh-ssh \
 	kovan-util \
