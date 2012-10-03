@@ -1,27 +1,18 @@
 require systemd-image.bb
 
 IMAGE_INSTALL += " \
-	usbutils \
-	i2c-tools \
-	alsa-utils \
-	devmem2 \
-	iw \
-	bonnie++ \
-	hdparm \
-	iozone3 \
-	iperf \
-	lmbench \
-	rt-tests \
-	evtest \
-	systemd-analyze \
+	usbutils i2c-tools alsa-utils devmem2 iw \
+	bonnie++ hdparm iozone3 iperf lmbench rt-tests \
+	evtest systemd-analyze \
 	lighttpd php php-cgi php-cli php-pear mysql5 \
 	strace gdb lsof bc bash procps kexec \
 	openssh openssh-scp openssh-ssh \
-	kovan-util \
-	udev-extra-rules \
+	kovan-util udev-extra-rules \
+	task-self-hosted \
 	python-fcntl python-subprocess python-ctypes python-terminal \
         \
-	qt4-x11-free libqtgui4 libqtwebkit4 libqtnetwork4 libicui18n xorg-minimal-fonts qt4-fonts liberation-fonts \
+	qt4-x11-free libqtgui4 libqtwebkit4 libqtnetwork4 \
+	libicui18n xorg-minimal-fonts qt4-fonts liberation-fonts \
 	qt4-plugin-bearer-connman \
 	\
 	${XSERVER} \
