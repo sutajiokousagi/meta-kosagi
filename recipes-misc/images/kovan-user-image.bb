@@ -1,5 +1,8 @@
 require systemd-image.bb
 
+# Replace connman with networkmanager
+CONMANPKGS = "networkmanager"
+
 IMAGE_INSTALL += " \
 	usbutils i2c-tools alsa-utils devmem2 iw \
 	bonnie++ hdparm iozone3 iperf lmbench rt-tests \
