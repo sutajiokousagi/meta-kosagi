@@ -1,0 +1,18 @@
+[Unit]
+Description=MySQL database server
+After=syslog.target
+After=network.target
+
+[Service]
+User=root
+Group=root
+
+ExecStart=/usr/libexec/mysqld --basedir=/usr --datadir=/var/mysql --user=mysql --log-error=/var/log/mysqld.err --pid-file=/var/lib/mysql/mysqld.pid --socket=/tmp/mysql.sock --port=3306
+ExecStop=/bin/kill -15 $MAINPID
+PIDFile=/var/lib/mysql/mysqld.pid
+
+# We rely on systemd, not mysqld_safe, to restart mysqld if it dies
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
