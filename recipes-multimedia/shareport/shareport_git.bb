@@ -9,10 +9,10 @@ CFLAGS += "-O2 -Wall `pkg-config --cflags openssl ao`"
 LDFLAGS += "-lm -lpthread `pkg-config --libs openssl ao`"
 
 do_install() {
-	install -d ${D}/usr/bin
-	install -m 0755 shairport ${D}/usr/bin
-	install -m 0755 shairport.pl ${D}/usr/bin
-	install -m 0755 hairtunes ${D}/usr/bin
+    install -d ${D}/usr/bin
+    install -m 0755 shairport ${D}/usr/bin
+    install -m 0755 shairport.pl ${D}/usr/bin
+    install -m 0755 hairtunes ${D}/usr/bin
 }
 
 FILES_${PN} += "/usr/bin"

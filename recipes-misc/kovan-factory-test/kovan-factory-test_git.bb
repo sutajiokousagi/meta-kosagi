@@ -13,19 +13,19 @@ PR = "r4"
 S = "${WORKDIR}/git"
 
 do_install() {
-	install -d ${D}/lib/systemd/system
-	install -m 0755 ${WORKDIR}/xorg.service ${D}/lib/systemd/system
-	install -m 0755 ${WORKDIR}/kovan-factory-test.service ${D}/lib/systemd/system
+    install -d ${D}/lib/systemd/system
+    install -m 0755 ${WORKDIR}/xorg.service ${D}/lib/systemd/system
+    install -m 0755 ${WORKDIR}/kovan-factory-test.service ${D}/lib/systemd/system
 
-	install -d ${D}${base_libdir}/systemd/system/basic.target.wants/
-	ln -sf ../kovan-factory-test.service ${D}${base_libdir}/systemd/system/basic.target.wants/
+    install -d ${D}${base_libdir}/systemd/system/basic.target.wants/
+    ln -sf ../kovan-factory-test.service ${D}${base_libdir}/systemd/system/basic.target.wants/
 
 
-	install -d ${D}/var/lib/connman
-	install -m 0755 ${WORKDIR}/factory.config ${D}/var/lib/connman/
+    install -d ${D}/var/lib/connman
+    install -m 0755 ${WORKDIR}/factory.config ${D}/var/lib/connman/
 
-	install -d ${D}/usr/sbin
-	install -m 0755 ${S}/kovan-test ${D}/usr/sbin/
+    install -d ${D}/usr/sbin
+    install -m 0755 ${S}/kovan-test ${D}/usr/sbin/
 }
 
 FILES_${PN} = "${bindir} ${sbindir}"

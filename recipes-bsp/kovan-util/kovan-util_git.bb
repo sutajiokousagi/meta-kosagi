@@ -61,7 +61,7 @@ FILES_${PN} += "${base_libdir}/systemd/system"
 FILES_${PN} += "${base_libdir}/systemd/system/basic.target.wants"
 
 pkg_postinst_${PN}_append() {
-	config_util --cmd=putblock --dev=/dev/mmcblk0p1 --block=LX9 < ${base_libdir}/firmware/kovan-lx9.bit
-	config_util --cmd=putblock --dev=/dev/mmcblk0p1 --block=LX45 < ${base_libdir}/firmware/kovan-lx45.bit
-	config_util --cmd=putblock --dev=/dev/mmcblk0p1 --block=logo < ${base_libdir}/firmware/logo.raw565.gz
+    config_util --cmd=putblock --dev=/dev/mmcblk0p1 --block=LX9 < ${base_libdir}/firmware/kovan-lx9.bit
+    config_util --cmd=putblock --dev=/dev/mmcblk0p1 --block=LX45 < ${base_libdir}/firmware/kovan-lx45.bit
+    config_util --cmd=putblock --dev=/dev/mmcblk0p1 --block=logo < ${base_libdir}/firmware/logo.raw565.gz
 }

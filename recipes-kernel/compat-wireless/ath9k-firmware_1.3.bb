@@ -10,8 +10,8 @@ LIC_FILES_CHKSUM = "file://LICENCE.atheros_firmware;md5=30a14c7823beedac9fa39c64
 S = "${WORKDIR}"
 
 do_install() {
-	install -d ${D}/${base_libdir}/firmware
-	install -m 0644 htc_9271.fw ${D}/${base_libdir}/firmware/
+    install -d ${D}/${base_libdir}/firmware
+    install -m 0644 htc_9271.fw ${D}/${base_libdir}/firmware/
 }
 
 FILES_${PN} = "${base_libdir}/firmware/"

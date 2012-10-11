@@ -18,22 +18,22 @@ SRC_URI = "file://storage-gadget-init.service \
           "
 
 do_install() {
-	install -d ${D}${base_libdir}/systemd/system/basic.target.wants
-	install -m 0644 ${WORKDIR}/*.service ${D}${base_libdir}/systemd/system
+    install -d ${D}${base_libdir}/systemd/system/basic.target.wants
+    install -m 0644 ${WORKDIR}/*.service ${D}${base_libdir}/systemd/system
 
-	for i in ${WORKDIR}/network-gadget-init.service ; do
-		install -m 0644 $i ${D}${base_libdir}/systemd/system
-		ln -sf ../$(basename $i) ${D}${base_libdir}/systemd/system/basic.target.wants/
-	done
+    for i in ${WORKDIR}/network-gadget-init.service ; do
+        install -m 0644 $i ${D}${base_libdir}/systemd/system
+        ln -sf ../$(basename $i) ${D}${base_libdir}/systemd/system/basic.target.wants/
+    done
 
-	install -d ${D}${sysconfdir}/udev/rules.d
-	install -m 0644 ${WORKDIR}/*.rules ${D}${sysconfdir}/udev/rules.d
-	install -m 0644 ${WORKDIR}/*.conf ${D}${sysconfdir}
+    install -d ${D}${sysconfdir}/udev/rules.d
+    install -m 0644 ${WORKDIR}/*.rules ${D}${sysconfdir}/udev/rules.d
+    install -m 0644 ${WORKDIR}/*.conf ${D}${sysconfdir}
 
-	install -d ${D}${bindir}
-	install -m 0755 ${WORKDIR}/*.sh ${D}${bindir}
+    install -d ${D}${bindir}
+    install -m 0755 ${WORKDIR}/*.sh ${D}${bindir}
 
-	install -d ${D}${sysconfdir}/tmpfiles.d
+    install -d ${D}${sysconfdir}/tmpfiles.d
 }
 
 PACKAGES =+ "${PN}-storage ${PN}-network ${PN}-udhcpd"

@@ -15,9 +15,9 @@ do_compile() {
 }
 
 do_install() {
-	install -d ${DEPLOY_DIR_IMAGE}/prion
-	cp -r ${S}/* ${DEPLOY_DIR_IMAGE}/prion/
+    install -d ${DEPLOY_DIR_IMAGE}/prion
+    cp -r ${S}/* ${DEPLOY_DIR_IMAGE}/prion/
 
-	install -d ${D}/usr/share/prion
-	cp -r ${S}/* ${D}/usr/share/prion
+    install -d ${D}/usr/share/prion
+    cp -r ${S}/* ${D}/usr/share/prion
 }

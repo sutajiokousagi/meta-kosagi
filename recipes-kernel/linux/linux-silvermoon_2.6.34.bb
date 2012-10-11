@@ -14,4 +14,4 @@ COMPATIBLE_MACHINE = "(kovan)"
 SRCREV = "9f210559f33755a2f39fb7222c4929ca26d204f8"
 
 SRC_URI += "git://github.com/sutajiokousagi/linux.git;branch=${BRANCH} \
-	file://defconfig"
+    file://defconfig"
