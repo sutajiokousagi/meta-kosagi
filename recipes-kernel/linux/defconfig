@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Linux kernel version: 2.6.34
-# Wed Oct  3 11:48:58 2012
+# Fri Oct  5 16:20:10 2012
 #
 CONFIG_ARM=y
 CONFIG_HAVE_PWM=y
@@ -1286,7 +1286,7 @@ CONFIG_I2C_PXA=y
 # CONFIG_I2C_DEBUG_ALGO is not set
 # CONFIG_I2C_DEBUG_BUS is not set
 CONFIG_SPI=y
-CONFIG_SPI_DEBUG=y
+# CONFIG_SPI_DEBUG is not set
 CONFIG_SPI_MASTER=y
 
 #
@@ -1301,7 +1301,7 @@ CONFIG_SPI_PXA2XX=y
 #
 # SPI Protocol Masters
 #
-# CONFIG_SPI_SPIDEV is not set
+CONFIG_SPI_SPIDEV=y
 # CONFIG_SPI_TLE62X0 is not set
 
 #
