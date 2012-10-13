@@ -9,6 +9,9 @@ PR = "r8"
 
 COMPATIBLE_MACHINE = "(kovan)"
 
+LICENSE = "GPLv2+"
+LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb \
+                    file://README;beginline=1;endline=22;md5=5ba4218ac89af7846802d0348df3fb90"
 SRC_URI = "git://github.com/sutajiokousagi/u-boot-2009.07-silvermoon.git;protocol=git;branch=${MACHINE} \
           "
 
