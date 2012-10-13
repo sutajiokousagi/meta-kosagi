@@ -1,34 +1,47 @@
 DESCRIPTION = "U-Boot - the Universal Boot Loader"
 HOMEPAGE = "http://www.denx.de/wiki/U-Boot/WebHome"
 SECTION = "bootloaders"
-LICENSE = "GPLv2+"
-LIC_FILES_CHKSUM = "file://COPYING;md5=4c6cde5df68eff615d36789dc18edd3b"
-
 PROVIDES = "virtual/bootloader"
 
-DEPENDS = "mtd-utils"
+inherit deploy
 
-PACKAGE_ARCH = "${MACHINE_ARCH}"
-PARALLEL_MAKE=""
+EXTRA_OEMAKE = 'CROSS_COMPILE=${TARGET_PREFIX} CC="${TARGET_PREFIX}gcc ${TOOLCHAIN_OPTIONS}"'
 
-EXTRA_OEMAKE = "CROSS_COMPILE=${TARGET_PREFIX}"
-
-UBOOT_MACHINE ?= "${MACHINE}_config"
-UBOOT_BINARY ?= "u-boot.bin"
-UBOOT_IMAGE ?= "u-boot-${MACHINE}-${PV}-${PR}.bin"
-UBOOT_SYMLINK ?= "u-boot-${MACHINE}.bin"
-UBOOT_MAKE_TARGET ?= "all"
-
-do_configure () {
-    oe_runmake ${UBOOT_MACHINE}
+python () {
+	if not d.getVar("UBOOT_MACHINE", True):
+		PN = d.getVar("PN", True)
+		FILE = os.path.basename(d.getVar("FILE", True))
+		bb.debug(1, "To build %s, see %s for instructions on \
+			     setting up your machine config" % (PN, FILE))
+		raise bb.parse.SkipPackage("because UBOOT_MACHINE is not set")
 }
 
+# Some versions of u-boot use .bin and others use .img.  By default use .bin
+# but enable individual recipes to change this value.
+UBOOT_SUFFIX ?= "bin"
+UBOOT_IMAGE ?= "u-boot-${MACHINE}-${PV}-${PR}.${UBOOT_SUFFIX}"
+UBOOT_BINARY ?= "u-boot.${UBOOT_SUFFIX}"
+UBOOT_SYMLINK ?= "u-boot-${MACHINE}.${UBOOT_SUFFIX}"
+UBOOT_MAKE_TARGET ?= "all"
+
+# Some versions of u-boot build an SPL (Second Program Loader) image that
+# should be packaged along with the u-boot binary as well as placed in the
+# deploy directory.  For those versions they can set the following variables
+# to allow packaging the SPL.
+SPL_BINARY ?= ""
+SPL_IMAGE ?= "${SPL_BINARY}-${MACHINE}-${PV}-${PR}"
+SPL_SYMLINK ?= "${SPL_BINARY}-${MACHINE}"
+
 do_compile () {
-    unset LDFLAGS
-    unset CFLAGS
-    unset CPPFLAGS
-    oe_runmake ${UBOOT_MAKE_TARGET}
-    oe_runmake tools env
+	if [ "${@base_contains('DISTRO_FEATURES', 'ld-is-gold', 'ld-is-gold', '', d)}" = "ld-is-gold" ] ; then
+		sed -i 's/$(CROSS_COMPILE)ld$/$(CROSS_COMPILE)ld.bfd/g' config.mk
+	fi
+
+	unset LDFLAGS
+	unset CFLAGS
+	unset CPPFLAGS
+	oe_runmake ${UBOOT_MACHINE}
+	oe_runmake ${UBOOT_MAKE_TARGET}
 }
 
 do_install () {
@@ -37,39 +50,36 @@ do_install () {
     ln -sf ${UBOOT_IMAGE} ${D}/boot/${UBOOT_BINARY}
 
     if [ -e ${WORKDIR}/fw_env.config ] ; then
-        install -d ${D}${base_sbindir}
         install -d ${D}${sysconfdir}
         install -m 644 ${WORKDIR}/fw_env.config ${D}${sysconfdir}/fw_env.config
-#        install -m 755 ${S}/tools/env/fw_printenv ${D}${base_sbindir}/fw_printenv
-#        install -m 755 ${S}/tools/env/fw_printenv ${D}${base_sbindir}/fw_setenv
     fi
 
+    if [ "x${SPL_BINARY}" != "x" ]
+    then
+        install ${S}/${SPL_BINARY} ${D}/boot/${SPL_IMAGE}
+        ln -sf ${SPL_IMAGE} ${D}/boot/${SPL_BINARY}
+    fi
 }
 
-FILES_${PN} = "/boot"
-# no gnu_hash in uboot.bin, by design, so skip QA
-INSANE_SKIP_${PN} = "1"
-
-PACKAGES += "${PN}-fw-utils"
-FILES_${PN}-fw-utils = "${sysconfdir} ${base_sbindir}"
-
-inherit deploy
-
-addtask deploy before do_package after do_compile
+FILES_${PN} = "/boot ${sysconfdir}"
+FILESPATH =. "${FILE_DIRNAME}/u-boot-git/${MACHINE}:"
 
 do_deploy () {
-    install -d ${DEPLOY_DIR_IMAGE}
-    install ${S}/${UBOOT_BINARY} ${DEPLOY_DIR_IMAGE}/${UBOOT_IMAGE}
+    install -d ${DEPLOYDIR}
+    install ${S}/${UBOOT_BINARY} ${DEPLOYDIR}/${UBOOT_IMAGE}
 
-    cd ${DEPLOY_DIR_IMAGE}
+    cd ${DEPLOYDIR}
     rm -f ${UBOOT_BINARY} ${UBOOT_SYMLINK}
     ln -sf ${UBOOT_IMAGE} ${UBOOT_SYMLINK}
     ln -sf ${UBOOT_IMAGE} ${UBOOT_BINARY}
 
-    if [ -e ${S}/MLO ] ; then
-        install ${S}/MLO ${DEPLOY_DIR_IMAGE}/MLO-${MACHINE}-${PV}
-        rm -f ${DEPLOY_DIR_IMAGE}/MLO-${MACHINE} ${DEPLOY_DIR_IMAGE}/MLO
-        ln -sf MLO-${MACHINE}-${PV} ${DEPLOY_DIR_IMAGE}/MLO-${MACHINE}
-        ln -sf MLO-${MACHINE}-${PV} ${DEPLOY_DIR_IMAGE}/MLO
+    if [ "x${SPL_BINARY}" != "x" ]
+    then
+        install ${S}/${SPL_BINARY} ${DEPLOYDIR}/${SPL_IMAGE}
+        rm -f ${DEPLOYDIR}/${SPL_BINARY} ${DEPLOYDIR}/${SPL_SYMLINK}
+        ln -sf ${SPL_IMAGE} ${DEPLOYDIR}/${SPL_BINARY}
+        ln -sf ${SPL_IMAGE} ${DEPLOYDIR}/${SPL_SYMLINK}
     fi
 }
+
+addtask deploy before do_build after do_compile
