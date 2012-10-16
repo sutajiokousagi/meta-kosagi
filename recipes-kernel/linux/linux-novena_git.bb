@@ -7,6 +7,7 @@ COMPATIBLE_MACHINE = "novena"
 SRCREV = "f59b51fe3d3092c08d7d554ecb40db24011b2ebc"
 SRC_URI = "git://github.com/torvalds/linux.git;protocol=git;branch=master \
            file://defconfig \
+           file://novena.dts \
 "          
 
 LINUX_VERSION ?= "3.6.0"
@@ -27,5 +28,38 @@ kernel_do_compile() {
     oe_runmake ${KERNEL_IMAGETYPE_FOR_MAKE} ${KERNEL_ALT_IMAGETYPE} CC="${KERNEL_CC}" LD="${KERNEL_LD}"  
     if test "${KERNEL_IMAGETYPE_FOR_MAKE}.gz" = "${KERNEL_IMAGETYPE}"; then  
         gzip -9c < "${KERNEL_IMAGETYPE_FOR_MAKE}" > "${KERNEL_OUTPUT}"  
-    fi  
+    fi
 }  
+
+do_install_append() {
+    cp -f ${WORKDIR}/novena.dts ${S}/arch/arm/boot/dts
+    echo "Starting do_install with devices [ ${KERNEL_DEVICETREE} ]"
+    for DTS_FILE in ${KERNEL_DEVICETREE}; do
+        echo "Using DTS file: ${DTS_FILE}"      
+        if [ ! -f ${DTS_FILE} ]; then
+            echo "Warning: ${DTS_FILE} is not available!"
+            continue
+        fi
+        DTS_BASE_NAME=`basename ${DTS_FILE} | awk -F "." '{print $1}'`
+        DTB_NAME=`echo ${KERNEL_IMAGE_BASE_NAME} | sed "s/${MACHINE}/${DTS_BASE_NAME}/g"`
+        DTB_SYMLINK_NAME=`echo ${KERNEL_IMAGE_SYMLINK_NAME} | sed "s/${MACHINE}/${DTS_BASE_NAME}/g"`
+        echo "Running in directory "`pwd`
+        echo dtc -I dts -O dtb ${KERNEL_DEVICETREE_FLAGS} -o ${DTS_BASE_NAME} ${DTS_FILE}
+        dtc -I dts -O dtb ${KERNEL_DEVICETREE_FLAGS} -o ${DTS_BASE_NAME} ${DTS_FILE}
+        install -m 0644 ${DTS_BASE_NAME} ${D}/boot/devicetree-${DTB_SYMLINK_NAME}.dtb
+    done
+    echo "Done do_install_append"
+}
+
+do_deploy_append() {
+    echo "Append for do_deploy start.  Looking through [ ${KERNEL_DEVICETREE} ]"
+    DTS_BASE_NAME=novena
+    DTB_NAME=`echo ${KERNEL_IMAGE_BASE_NAME} | sed "s/${MACHINE}/${DTS_BASE_NAME}/g"`
+    DTB_SYMLINK_NAME=`echo ${KERNEL_IMAGE_SYMLINK_NAME} | sed "s/${MACHINE}/${DTS_BASE_NAME}/g"`
+    install -d ${DEPLOYDIR}
+    install -m 0644 ${S}/${DTS_BASE_NAME} ${DEPLOYDIR}/${DTB_NAME}.dtb
+    cd ${DEPLOYDIR}
+    ln -sf ${DTB_NAME}.dtb ${DTB_SYMLINK_NAME}.dtb
+}
+
+FILES_${PN} += "/boot"
