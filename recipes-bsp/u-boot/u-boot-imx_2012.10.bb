@@ -1,25 +1,45 @@
 require u-boot.inc
 
-# To build u-boot for your machine, provide the following lines in your machine
-# config, replacing the assignments as appropriate for your machine.
-# UBOOT_MACHINE = "omap3_beagle_config"
-# UBOOT_ENTRYPOINT = "0x80008000"
-# UBOOT_LOADADDRESS = "0x80008000"
-
 COMPATIBLE_MACHINE = "(novena)"
 
 LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb \
                     file://README;beginline=1;endline=22;md5=78b195c11cb6ef63e6985140db7d7bab"
 
-# This revision corresponds to the tag "v2012.10"
-SRCREV = "0eddf9613b4ac89f67f1d13ec831823013220007"
+SRCREV = "ce15fc90ccdea6b47a0223fd54989080968a4e73"
 
 PV = "v2012.10+git${SRCPV}"
 PR = "r0"
 
-SRC_URI = "git://github.com/Freescale/u-boot-imx.git;branch=patches-2012.10;protocol=git"
+SRC_URI = "git://github.com/dirkbehme/u-boot-imx6.git;branch=u-boot-imx-staging;protocol=git\
+           file://novena.h \
+           file://boot.script \
+"
 
 S = "${WORKDIR}/git"
+
+do_configure_prepend() {
+    cp ${WORKDIR}/novena.h ${S}/include/configs/mx6qsabrelite.h
+}
+
+do_compile_append() {
+    mkimage -A arm \
+            -O linux \
+            -a 0 \
+            -e 0 \
+            -T script \
+            -C none \
+            -n "Boot script" \
+            -d ${WORKDIR}/boot.script \
+               ${S}/boot.scr
+}
+
+do_install_append() {
+    install ${S}/boot.scr ${D}/boot/boot.scr
+}
+
+do_deploy_append() {
+    install ${S}/boot.scr ${DEPLOYDIR}/boot.scr
+}
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"

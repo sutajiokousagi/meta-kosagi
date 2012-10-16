@@ -1,0 +1,3 @@
+fatload mmc 0 0x12000000 uImage-novena.bin
+fatload mmc 0 0x11ff0000 uImage-novena.dtb
+bootm 0x12000000 - 0x11ff0000
