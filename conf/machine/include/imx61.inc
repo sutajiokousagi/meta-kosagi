@@ -41,4 +41,7 @@ novena_make_rom() {
        bs=512 \
        conv=notrunc \
        seek=2
+
+    # Compress ROM image
+    gzip ${DEPLOY_DIR_IMAGE}/rom-${MACHINE}-${IMAGE_BASENAME}.img
 }
