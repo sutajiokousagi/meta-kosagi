@@ -43,5 +43,6 @@ novena_make_rom() {
        seek=2
 
     # Compress ROM image
+    rm -f ${DEPLOY_DIR_IMAGE}/rom-${MACHINE}-${IMAGE_BASENAME}.img.gz
     /bin/gzip ${DEPLOY_DIR_IMAGE}/rom-${MACHINE}-${IMAGE_BASENAME}.img
 }
