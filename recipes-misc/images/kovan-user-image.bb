@@ -7,7 +7,7 @@ IMAGE_INSTALL += " \
 	usbutils i2c-tools alsa-utils devmem2 iw \
 	bonnie++ hdparm iozone3 iperf lmbench rt-tests \
 	evtest systemd-analyze \
-	lighttpd php php-cgi php-cli php-pear mysql5 \
+	lighttpd lighttpd-module-cgi php php-cgi php-cli php-pear mysql5 \
 	strace gdb lsof bc bash procps kexec \
 	openssh openssh-scp openssh-ssh \
 	kovan-util udev-extra-rules \
