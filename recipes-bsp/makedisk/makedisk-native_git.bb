@@ -6,7 +6,7 @@ AUTHOR = "Sean Cross"
 LICENSE = "BSD"
 PR = "r1"
 
-SRC_URI = "git://github.com/sutajiokousagi/makedisk.git;protocol=http"
+SRC_URI = "git://github.com/sutajiokousagi/makedisk.git"
 SRCREV = "c343d8e8176482cf2302ea5d8e1974e9178eab83"
 S = "${WORKDIR}/git"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=8bef8e6712b1be5aa76af1ebde9d6378"
