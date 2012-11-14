@@ -25,7 +25,7 @@ PARALLEL_MAKEINST = ""
 # a version.h target for some reason.
 kernel_do_compile() {  
     unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS MACHINE  
-    oe_runmake ${KERNEL_IMAGETYPE_FOR_MAKE} ${KERNEL_ALT_IMAGETYPE} CC="${KERNEL_CC}" LD="${KERNEL_LD}"  
+    oe_runmake ${KERNEL_IMAGETYPE_FOR_MAKE} LOADADDR="${KERNEL_LOADADDR}" CC="${KERNEL_CC}" LD="${KERNEL_LD}"  
     if test "${KERNEL_IMAGETYPE_FOR_MAKE}.gz" = "${KERNEL_IMAGETYPE}"; then  
         gzip -9c < "${KERNEL_IMAGETYPE_FOR_MAKE}" > "${KERNEL_OUTPUT}"  
     fi
