@@ -14,7 +14,7 @@
 /include/ "imx6q.dtsi"
 
 / {
-	model = "Freescale i.MX6 Quad SABRE Lite Board";
+	model = "Kosagi Novena-laptop (i.MX6 Quad)";
 	compatible = "fsl,imx6q-sabrelite", "fsl,imx6q";
 
 	chosen {
@@ -93,8 +93,9 @@
 			usdhc@02198000 { /* uSDHC3 */
 				pinctrl-names = "default";
 				pinctrl-0 = <&pinctrl_usdhc3_2>;
-				cd-gpios = <&gpio7 0 0>;
-				wp-gpios = <&gpio7 1 0>;
+				non-removable;
+/*				cd-gpios = <&gpio7 0 0>; */
+/*				wp-gpios = <&gpio7 1 0>; */
 				vmmc-supply = <&reg_3p3v>;
 				status = "okay";
 			};
@@ -134,6 +135,19 @@
 					VDDIO-supply = <&reg_3p3v>;
 				};
 			};
+			i2c@021a4000 { /* I2C2 */
+				status = "okay";
+				clock-frequency = <100000>;
+				pinctrl-names = "default";
+				pinctrl-0 = <&pinctrl_i2c2_1>;
+			};
+			i2c@021a8000 { /* I2C3 */
+				status = "okay";
+				clock-frequency = <100000>;
+				pinctrl-names = "default";
+				pinctrl-0 = <&pinctrl_i2c3_1>;
+			};
+
 		};
 	};
 
