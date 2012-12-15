@@ -8,10 +8,11 @@ SRCREV = "f59b51fe3d3092c08d7d554ecb40db24011b2ebc"
 SRC_URI = "git://github.com/torvalds/linux.git;protocol=git;branch=master \
            file://defconfig \
            file://novena.dts \
+	   file://imx6q.dtsi \
 "          
 
 LINUX_VERSION ?= "3.6.0"
-PR = "r0"
+PR = "r1"
 PV = "${LINUX_VERSION}+${PR}+git"
 
 S = "${WORKDIR}/git"
@@ -33,6 +34,7 @@ kernel_do_compile() {
 
 do_install_append() {
     cp -f ${WORKDIR}/novena.dts ${S}/arch/arm/boot/dts
+    cp -f ${WORKDIR}/imx6q.dtsi ${S}/arch/arm/boot/dts
     echo "Starting do_install with devices [ ${KERNEL_DEVICETREE} ]"
     for DTS_FILE in ${KERNEL_DEVICETREE}; do
         echo "Using DTS file: ${DTS_FILE}"      
