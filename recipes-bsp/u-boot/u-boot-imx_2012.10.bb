@@ -13,6 +13,7 @@ PR = "r3"
 
 SRC_URI = "git://github.com/sutajiokousagi/u-boot-imx6.git;branch=u-boot-imx-staging;protocol=git\
            file://novena.h \
+	   file://novena.c \
            file://boot.script \
 "
 
@@ -20,6 +21,7 @@ S = "${WORKDIR}/git"
 
 do_configure_prepend() {
     cp ${WORKDIR}/novena.h ${S}/include/configs/mx6qsabrelite.h
+    cp ${WORKDIR}/novena.c ${S}/board/freescale/mx6qsabrelite/mx6qsabrelite.c
 }
 
 do_compile_append() {
