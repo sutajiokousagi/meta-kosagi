@@ -22,6 +22,7 @@ IMAGE_INSTALL += " \
     python-fcntl python-subprocess python-ctypes python-terminal \
     libicui18n xorg-minimal-fonts liberation-fonts \
     task-native-sdk \
+    git-dev \
     \
     ${XSERVER} \
     kernel-modules \
