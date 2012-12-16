@@ -9,7 +9,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb \
 SRCREV = "ce15fc90ccdea6b47a0223fd54989080968a4e73"
 
 PV = "v2012.10+git${SRCPV}"
-PR = "r3"
+PR = "r4"
 
 SRC_URI = "git://github.com/sutajiokousagi/u-boot-imx6.git;branch=u-boot-imx-staging;protocol=git\
            file://novena.h \
