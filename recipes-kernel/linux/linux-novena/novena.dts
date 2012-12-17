@@ -28,18 +28,12 @@
 	soc {
 		aips-bus@02000000 { /* AIPS1 */
 			spba-bus@02000000 {
-				ecspi@02008000 { /* eCSPI1 */
-					fsl,spi-num-chipselects = <1>;
-					cs-gpios = <&gpio3 19 0>;
+				ecspi@02010000 { /* eCSPI3 - FPGA interface */
+					fsl,spi-num-chipselects = <3>;
+					cs-gpios = <&gpio4 24 0>, <&gpio4 25 0>, <&gpio4 26 0>;
 					pinctrl-names = "default";
-					pinctrl-0 = <&pinctrl_ecspi1_1>;
+					pinctrl-0 = <&pinctrl_ecspi3_1>;
 					status = "okay";
-
-					flash: m25p80@0 {
-						compatible = "sst,sst25vf016b";
-						spi-max-frequency = <20000000>;
-						reg = <0>;
-					};
 				};
 
 				ssi1: ssi@02028000 {
@@ -180,17 +174,4 @@
 		};
 	};
 
-	sound {
-		compatible = "fsl,imx6q-sabrelite-sgtl5000",
-			     "fsl,imx-audio-sgtl5000";
-		model = "imx6q-sabrelite-sgtl5000";
-		ssi-controller = <&ssi1>;
-		audio-codec = <&codec>;
-		audio-routing =
-			"MIC_IN", "Mic Jack",
-			"Mic Jack", "Mic Bias",
-			"Headphone Jack", "HP_OUT";
-		mux-int-port = <1>;
-		mux-ext-port = <4>;
-	};
 };

@@ -149,28 +149,6 @@
 					interrupts = <0 52 0x04>;
 				};
 
-				ecspi@02008000 { /* eCSPI1 */
-					#address-cells = <1>;
-					#size-cells = <0>;
-					compatible = "fsl,imx6q-ecspi", "fsl,imx51-ecspi";
-					reg = <0x02008000 0x4000>;
-					interrupts = <0 31 0x04>;
-					clocks = <&clks 112>, <&clks 112>;
-					clock-names = "ipg", "per";
-					status = "disabled";
-				};
-
-				ecspi@0200c000 { /* eCSPI2 */
-					#address-cells = <1>;
-					#size-cells = <0>;
-					compatible = "fsl,imx6q-ecspi", "fsl,imx51-ecspi";
-					reg = <0x0200c000 0x4000>;
-					interrupts = <0 32 0x04>;
-					clocks = <&clks 113>, <&clks 113>;
-					clock-names = "ipg", "per";
-					status = "disabled";
-				};
-
 				ecspi@02010000 { /* eCSPI3 */
 					#address-cells = <1>;
 					#size-cells = <0>;
@@ -178,28 +156,6 @@
 					reg = <0x02010000 0x4000>;
 					interrupts = <0 33 0x04>;
 					clocks = <&clks 114>, <&clks 114>;
-					clock-names = "ipg", "per";
-					status = "disabled";
-				};
-
-				ecspi@02014000 { /* eCSPI4 */
-					#address-cells = <1>;
-					#size-cells = <0>;
-					compatible = "fsl,imx6q-ecspi", "fsl,imx51-ecspi";
-					reg = <0x02014000 0x4000>;
-					interrupts = <0 34 0x04>;
-					clocks = <&clks 115>, <&clks 115>;
-					clock-names = "ipg", "per";
-					status = "disabled";
-				};
-
-				ecspi@02018000 { /* eCSPI5 */
-					#address-cells = <1>;
-					#size-cells = <0>;
-					compatible = "fsl,imx6q-ecspi", "fsl,imx51-ecspi";
-					reg = <0x02018000 0x4000>;
-					interrupts = <0 35 0x04>;
-					clocks = <&clks 116>, <&clks 116>;
 					clock-names = "ipg", "per";
 					status = "disabled";
 				};
@@ -552,15 +508,16 @@
 					};
 				};
 
-				ecspi1 {
-					pinctrl_ecspi1_1: ecspi1grp-1 {
-						fsl,pins = <
-							101 0x100b1	/* MX6Q_PAD_EIM_D17__ECSPI1_MISO */
-							109 0x100b1	/* MX6Q_PAD_EIM_D18__ECSPI1_MOSI */
-							94  0x100b1	/* MX6Q_PAD_EIM_D16__ECSPI1_SCLK */
-						>;
-					};
-				};
+                               ecspi3 {
+                                       pinctrl_ecspi3_1: ecspi3grp-1 {
+                                               fsl,pins = <
+                                                       526 0x100b1     /* MX6Q_PAD_DISP0_DAT2__ECSPI3_MISO */
+                                                       518 0x100b1     /* MX6Q_PAD_DISP0_DAT1__ECSPI3_MOSI */
+                                                       511 0x100b1     /* MX6Q_PAD_DISP0_DAT0__ECSPI3_SCLK */
+                                               >;
+                                       };
+                               };
+
 
 				enet {
 					pinctrl_enet_1: enetgrp-1 {
