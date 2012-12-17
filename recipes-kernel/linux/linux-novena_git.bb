@@ -12,7 +12,7 @@ SRC_URI = "git://github.com/torvalds/linux.git;protocol=git;branch=master \
 "          
 
 LINUX_VERSION ?= "3.6.0"
-PR = "r1"
+PR = "r2"
 PV = "${LINUX_VERSION}+${PR}+git"
 
 S = "${WORKDIR}/git"
