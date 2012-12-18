@@ -142,6 +142,12 @@
 				pinctrl-0 = <&pinctrl_i2c3_1>;
 			};
 
+			ethernet@02188000 {
+				status = "okay";
+				pinctrl-names = "default";
+				pinctrl-0 = <&pinctrl_enet_1>;
+			};
+
 		};
 	};
 
