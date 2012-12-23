@@ -18,7 +18,7 @@ IMAGE_INSTALL += " \
     systemd-analyze \
     strace gdb lsof bc bash procps kexec \
     openssh openssh-scp openssh-ssh \
-    udev \
+#    udev \  # conflicts with git-dev???
     python-fcntl python-subprocess python-ctypes python-terminal \
     libicui18n xorg-minimal-fonts liberation-fonts \
     task-native-sdk \
