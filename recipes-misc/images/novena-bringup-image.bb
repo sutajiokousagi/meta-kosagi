@@ -15,17 +15,17 @@ IMAGE_INSTALL += " \
     lmbench \
     rt-tests \
     evtest \
+    udev \ 
     systemd-analyze \
     strace gdb lsof bc bash procps kexec \
     openssh openssh-scp openssh-ssh \
     python-fcntl python-subprocess python-ctypes python-terminal \
     libicui18n xorg-minimal-fonts liberation-fonts \
     task-native-sdk \
-    git-dev \
     \
     ${XSERVER} \
     kernel-modules \
 "
 export IMAGE_BASENAME = "hw-bringup"
 
-#    udev \  # conflicts with git-dev???
+#    git-dev \
