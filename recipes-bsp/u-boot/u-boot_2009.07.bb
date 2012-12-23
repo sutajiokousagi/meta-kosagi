@@ -5,7 +5,7 @@ UBOOT_IMAGE = "u-boot-${MACHINE}-${PV}-${PR}.bin"
 UBOOT_SYMLINK = "u-boot-${MACHINE}.bin"
 
 PV = "2009.07"
-PR = "r8"
+PR = "r9"
 
 COMPATIBLE_MACHINE = "(kovan)"
 
