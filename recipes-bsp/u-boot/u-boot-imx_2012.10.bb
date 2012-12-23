@@ -16,6 +16,7 @@ SRC_URI = "git://github.com/sutajiokousagi/u-boot-imx6.git;branch=u-boot-imx-sta
 	   file://novena.c \
            file://boot.script \
 	   file://mt16jsf51264hz.cfg \
+	   file://boards.cfg \
 "
 
 S = "${WORKDIR}/git"
@@ -24,6 +25,7 @@ do_configure_prepend() {
     cp ${WORKDIR}/novena.h ${S}/include/configs/mx6qsabrelite.h
     cp ${WORKDIR}/novena.c ${S}/board/freescale/mx6qsabrelite/mx6qsabrelite.c
     cp ${WORKDIR}/mt16jsf51264hz.cfg ${S}/board/freescale/imx/ddr/mx6q_4x_mt41j128.cfg
+    cp ${WORKDIR}/boards.cfg ${S}/
 }
 
 do_compile_append() {
