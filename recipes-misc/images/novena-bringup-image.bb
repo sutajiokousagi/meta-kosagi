@@ -6,6 +6,7 @@ IMAGE_INSTALL += " \
     usbutils \
     i2c-tools \
     alsa-utils \
+    wireless-tools ath9k-firmware \
     devmem2 \
     iw \
     bonnie++ \
