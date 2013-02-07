@@ -9,7 +9,7 @@ KERNEL_IMAGETYPE = "uImage"
 UBOOT_ENTRYPOINT = "10008000"
 
 EXTRA_IMAGEDEPENDS += "u-boot-imx makedisk-native genfatfs-native"
-UBOOT_MACHINE = "mx6qsabrelite_config"
+UBOOT_MACHINE = "novena_config"
 UBOOT_SUFFIX = "imx"
 UBOOT_MAKE_TARGET = "u-boot.imx"
 

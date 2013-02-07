@@ -5,7 +5,7 @@ COMPATIBLE_MACHINE = "novena"
 
 # Bump MACHINE_KERNEL_PR in the machine config if you update the kernel.
 SRCREV = "f59b51fe3d3092c08d7d554ecb40db24011b2ebc"
-SRC_URI = "git://github.com/torvalds/linux.git;protocol=git;branch=master \
+SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git;protocol=git;branch=master \
            file://defconfig \
            file://novena.dts \
 	   file://imx6q.dtsi \
