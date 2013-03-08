@@ -8,7 +8,7 @@ MACHINE_KERNEL_PR = "r12"
 KERNEL_IMAGETYPE = "uImage"
 UBOOT_ENTRYPOINT = "10008000"
 
-EXTRA_IMAGEDEPENDS += "u-boot-imx makedisk-native genfatfs-native"
+EXTRA_IMAGEDEPENDS += "u-boot-imx makedisk-native genfatfs-native sdma-firmware"
 UBOOT_MACHINE = "novena_config"
 UBOOT_SUFFIX = "imx"
 UBOOT_MAKE_TARGET = "u-boot.imx"
