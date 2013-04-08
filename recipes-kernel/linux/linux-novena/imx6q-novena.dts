@@ -53,15 +53,29 @@
 		};
 	};
 
+	leds {
+		compatible = "gpio-leds";
+		heartbeat {
+			label = "novena::usr0";
+			gpios = <&gpio3 19 0>;
+			linux,default-trigger = "heartbeat";
+		};
+	};
+
 	sound {
 		compatible = "fsl,imx-audio-novena";
 		model = "imx-audio-novena";
+		clocks = <&clks 169>, <&clks 57>, <&clks 173>;
+		clock-names = "cko1", "cko1_sel", "pll4_audio";
 		ssi-controller = <&ssi1>;
 		audio-codec = <&codec>;
+		power-gpio = <&gpio5 17 0>;
+		jack-gpio = <&gpio5 15 0>;
 		audio-routing =
 			"MIC_IN", "Mic Jack",
 			"Mic Jack", "Mic Bias",
-			"Headphone Jack", "HP_OUT";
+			"Headphone Jack", "HP_OUT",
+			"Ext Spk", "SPK_OUT";
 		mux-int-port = <1>;
 		mux-ext-port = <3>;
 	};
@@ -72,16 +86,26 @@
 	status = "okay";
 };
 
-&uart1 {
-	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_uart1_1>;
-	status = "okay";
-};
-
 &uart2 {
 	status = "okay";
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_uart2_1>;
+};
+
+&uart3 {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart3_1>;
+};
+
+&uart4 {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart4_1>;
+};
+
+&ahci {
+	status = "okay";
 };
 
 &iomuxc {
@@ -94,7 +118,8 @@
 				996  0x80000000	/* MX6Q_PAD_GPIO_2__GPIO_1_2 */
 				1004 0x80000000	/* MX6Q_PAD_GPIO_4__GPIO_1_4 */
 				121  0x80000000	/* MX6Q_PAD_EIM_D19__GPIO_3_19 */
-				144  0x80000000	/* MX6Q_PAD_EIM_D22__GPIO_3_22 */
+				144  0x80000000	/* MX6Q_PAD_EIM_D22__GPIO_3_22 (PCIE_WAKE) */
+				207  0x80000000	/* MX6Q_PAD_EIM_D29__GPIO_3_29 (PCIE_RST) */
 				152  0x80000000	/* MX6Q_PAD_EIM_D23__GPIO_3_23 */
 				1262 0x80000000 /* MX6Q_PAD_SD3_DAT5__GPIO_7_0 */
 				1270 0x1f0b0	/* MX6Q_PAD_SD3_DAT4__GPIO_7_1 */
@@ -105,24 +130,9 @@
 
 				/* Touchscreen interrupt */
 				659  0x80000000 /* MX6Q_PAD_DISP0_DAT19__GPIO_5_13 */
-/* Also GPIO_0 ALT3 ASRC_EXT_CLK page 277 */
-/* Set IOMUXC_IOMUXC_SW_MUX_CTL_PAD_GPIO_0 (pg 2104) devmem2 0x020e0220 w 3 - AF3 */
-/* Set IOMUXC_ASRC_ASRCK_CLOCK_6_SELECT_INPUT to ALT3 devmem2  0x020e07b0 w 1 */
 
-/* Set CLKO1 to output audio PLL at 24 MHz devmem2 0x020c4060 w 0x000a008f */
-/* Set the audio clock to 24 MHz devmem2 0x020c8070 w 0x00012000 */
-
-/* Generate a 24.576 MHz clock (for 48 kHz) */
-/* Set denominator to 1000: devmem2 0x020c8090 w 1000 */
-/* Set numerator to 768: devmem2 0x020c8080 w 768 */
-/* Set audio PLL enabled: devmem2 0x020c8070 w 0x00002020 */
-/* Set audio clock to output audio PLL, divide by 8: devmem2 0x020c4060 w 0x000a00ff */
-
-/* Generate a 22.5792 MHz clock (for 44.1 kHz) */
-/* Set denominator to 10000: devmem2 0x020c8090 w 10000 */
-/* Set numerator to 1056: devmem2 0x020c8080 w 1056 */
-/* Set audio PLL enabled: devmem2 0x020c8070 w 0x0000201e */
-/* Set audio clock to output audio PLL, divide by 8: devmem2 0x020c4060 w 0x000a00ff */
+				/* GPIO LED */
+				121  0x80000000 /* MX6Q_PAD_EIM_D19__GPIO_3_19 */
 			>;
 		};
 	};
@@ -132,6 +142,8 @@
 	pinctrl-names = "default";
         pinctrl-0 = <&pinctrl_enet_1>;
 	phy-mode = "rgmii";
+        phy-reset-gpios = <&gpio3 23 0>;
+	mac-address = [de ad fe ed 01 01];
 	status = "okay";
 };
 
@@ -233,7 +245,6 @@
 	codec: es8328@11 {
 		compatible = "everest,es8328";
 		reg = <0x11>;
-		clocks = <&clks 169>, <&clks 57>;
 //		VDDA-supply = <&reg_2p5v>;
 //		VDDIO-supply = <&reg_3p3v>;
 	};
@@ -250,6 +261,10 @@
 		spi-max-frequency = <30000000>;
 		reg = <0>;
 	};
+};
+
+&pcie {
+	status = "okay";
 };
 
 /*
