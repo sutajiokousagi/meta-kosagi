@@ -1,0 +1,12 @@
+[Unit]
+Description=Start networking services
+Requires=network-eth1.service
+Requires=network-eth0.service
+
+[Service]
+ExecStartPre=/usr/sbin/iptables -t nat -F
+ExecStartPre=/usr/sbin/iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+ExecStartPre=/bin/mkdir -p /var/lib/misc
+ExecStart=/usr/bin/dnsmasq -i eth1 -F 10.0.50.100,10.0.50.250,15000 -K
+Type=forking
+PIDFile=/var/run/dnsmasq.pid

@@ -1,0 +1,12 @@
+[Unit]
+Description=Start networking services
+
+[Service]
+ExecStart=/sbin/ifup eth1
+Type=oneshot
+ExecStop=/sbin/ifdown eth1
+Environment=PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
