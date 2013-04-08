@@ -1,0 +1,19 @@
+# This is a service file for use with the systemd init daemon. 
+# It should be placed with other systemd units, usually at 
+# /usr/lib/systemd/system/tor.service 
+
+[Unit]
+Description = Anonymizing overlay network for TCP
+After = syslog.target network.target nss-lookup.target
+
+[Service]
+Type = simple
+ExecStart = /usr/bin/tor --runasdaemon 0 -f /etc/tor/torrc --quiet
+ExecReload = /bin/kill -HUP ${MAINPID}
+ExecStop = /bin/kill -INT ${MAINPID}
+TimeoutSec = 30
+Restart = on-failure
+LimitNOFILE = 32768
+
+[Install]
+WantedBy = multi-user.target
