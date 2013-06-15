@@ -4,14 +4,14 @@ DESCRIPTION = "Linux kernel for the Novena platform"
 COMPATIBLE_MACHINE = "novena"
 
 # Bump MACHINE_KERNEL_PR in the machine config if you update the kernel.
-SRCREV = "5ffbea593298281ba85a44d768c570b6ea490e0e"
+SRCREV = "8634b855ebdd36ea0062860e099aff62aff4e52d"
 SRC_URI = "git://github.com/sutajiokousagi/linux.git;protocol=git;branch=novena \
            file://defconfig \
            file://imx6q-novena.dts \
 "          
 
 LINUX_VERSION ?= "3.6.0"
-PR = "r4"
+PR = "r5"
 PV = "${LINUX_VERSION}+${PR}+git"
 
 S = "${WORKDIR}/git"
