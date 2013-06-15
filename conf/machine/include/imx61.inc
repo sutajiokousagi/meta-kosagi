@@ -4,11 +4,11 @@ PREFERRED_PROVIDER_virtual/bootloader = "u-boot-imx"
 PREFERRED_PROVIDER_virtual/kernel = "linux-novena"
 
 # Increase this everytime you change something in the kernel
-MACHINE_KERNEL_PR = "r9"
+MACHINE_KERNEL_PR = "r14"
 KERNEL_IMAGETYPE = "uImage"
 UBOOT_ENTRYPOINT = "10008000"
 
-EXTRA_IMAGEDEPENDS += "u-boot-imx makedisk-native genfatfs-native"
+EXTRA_IMAGEDEPENDS += "u-boot-imx makedisk-native genfatfs-native sdma-firmware"
 UBOOT_MACHINE = "novena_config"
 UBOOT_SUFFIX = "imx"
 UBOOT_MAKE_TARGET = "u-boot.imx"
@@ -16,7 +16,7 @@ UBOOT_MAKE_TARGET = "u-boot.imx"
 IMAGE_ROOTFS_SIZE = "512000"
 IMAGE_FSTYPES += "ext3"
 
-KERNEL_DEVICETREE = "arch/arm/boot/dts/novena.dts"
+KERNEL_DEVICETREE = "arch/arm/boot/dts/imx6q-novena.dts"
 IMAGE_POSTPROCESS_COMMAND += "novena_make_rom;"
 
 novena_make_rom() {

@@ -1,0 +1,291 @@
+/*
+ * Copyright 2012 Freescale Semiconductor, Inc.
+ * Copyright 2011 Linaro Ltd.
+ *
+ * The code contained herein is licensed under the GNU General Public
+ * License. You may obtain a copy of the GNU General Public License
+ * Version 2 or later at the following locations:
+ *
+ * http://www.opensource.org/licenses/gpl-license.html
+ * http://www.gnu.org/copyleft/gpl.html
+ */
+
+/dts-v1/;
+/include/ "imx6q.dtsi"
+
+/ {
+	model = "Kosagi Novena (i.MX6 Quad)";
+	compatible = "fsl,imx6q-novena", "fsl,imx6q";
+        chosen {
+                bootargs = "console=ttymxc1,115200 earlyprintk root=/dev/mmcblk0p2 rootwait rootfstype=ext4";
+        };
+
+	memory {
+		reg = <0x10000000 0x40000000>;
+	};
+
+	regulators {
+		compatible = "simple-bus";
+
+		reg_2p5v: 2p5v {
+			compatible = "regulator-fixed";
+			regulator-name = "2P5V";
+			regulator-min-microvolt = <2500000>;
+			regulator-max-microvolt = <2500000>;
+			regulator-always-on;
+		};
+
+		reg_3p3v: 3p3v {
+			compatible = "regulator-fixed";
+			regulator-name = "3P3V";
+			regulator-min-microvolt = <3300000>;
+			regulator-max-microvolt = <3300000>;
+			regulator-always-on;
+		};
+
+		reg_usb_otg_vbus: usb_otg_vbus {
+			compatible = "regulator-fixed";
+			regulator-name = "usb_otg_vbus";
+			regulator-min-microvolt = <5000000>;
+			regulator-max-microvolt = <5000000>;
+			gpio = <&gpio3 22 0>;
+			enable-active-high;
+		};
+	};
+
+	leds {
+		compatible = "gpio-leds";
+		heartbeat {
+			label = "novena::usr0";
+			gpios = <&gpio3 19 0>;
+			linux,default-trigger = "heartbeat";
+		};
+	};
+
+	sound {
+		compatible = "fsl,imx-audio-novena";
+		model = "imx-audio-novena";
+		clocks = <&clks 169>, <&clks 57>, <&clks 173>;
+		clock-names = "cko1", "cko1_sel", "pll4_audio";
+		ssi-controller = <&ssi1>;
+		audio-codec = <&codec>;
+		power-gpio = <&gpio5 17 0>;
+		jack-gpio = <&gpio5 15 0>;
+		audio-routing =
+			"MIC_IN", "Mic Jack",
+			"Mic Jack", "Mic Bias",
+			"Headphone Jack", "HP_OUT",
+			"Ext Spk", "SPK_OUT";
+		mux-int-port = <1>;
+		mux-ext-port = <3>;
+	};
+};
+
+&ssi1 {
+	fsl,mode = "i2s-slave";
+	status = "okay";
+};
+
+&uart2 {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart2_1>;
+};
+
+&uart3 {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart3_1>;
+};
+
+&uart4 {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart4_1>;
+};
+
+&ahci {
+	status = "okay";
+};
+
+&iomuxc {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_hog>;
+
+	hog {
+		pinctrl_hog: hoggrp {
+			fsl,pins = <
+				996  0x80000000	/* MX6Q_PAD_GPIO_2__GPIO_1_2 */
+				1004 0x80000000	/* MX6Q_PAD_GPIO_4__GPIO_1_4 */
+				121  0x80000000	/* MX6Q_PAD_EIM_D19__GPIO_3_19 */
+				144  0x80000000	/* MX6Q_PAD_EIM_D22__GPIO_3_22 (PCIE_WAKE) */
+				207  0x80000000	/* MX6Q_PAD_EIM_D29__GPIO_3_29 (PCIE_RST) */
+				152  0x80000000	/* MX6Q_PAD_EIM_D23__GPIO_3_23 */
+				1262 0x80000000 /* MX6Q_PAD_SD3_DAT5__GPIO_7_0 */
+				1270 0x1f0b0	/* MX6Q_PAD_SD3_DAT4__GPIO_7_1 */
+				953  0x80000000	/* MX6Q_PAD_GPIO_0__CCM_CLKO */
+
+				/* Headphone plug */
+				675  0x80000000 /* MX6Q_PAD_DISP0_DAT21__GPIO_5_15 */
+
+				/* Touchscreen interrupt */
+				659  0x80000000 /* MX6Q_PAD_DISP0_DAT19__GPIO_5_13 */
+
+				/* GPIO LED */
+				121  0x80000000 /* MX6Q_PAD_EIM_D19__GPIO_3_19 */
+			>;
+		};
+	};
+};
+
+&fec {
+	pinctrl-names = "default";
+        pinctrl-0 = <&pinctrl_enet_1>;
+	phy-mode = "rgmii";
+        phy-reset-gpios = <&gpio3 23 0>;
+	mac-address = [de ad fe ed 01 01];
+	status = "okay";
+};
+
+&usdhc2 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_usdhc2_1>;
+	cd-gpios = <&gpio1 4 0>;
+	wp-gpios = <&gpio1 2 0>;
+	status = "okay";
+};
+
+&usdhc3 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_usdhc3_2>;
+	non-removable;
+	status = "okay";
+};
+
+&usbotg {
+	vbus-supply = <&reg_usb_otg_vbus>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_usbotg_2>;
+	disable-over-current;
+	status = "okay";
+};
+
+&usbh1 {
+	status = "okay";
+};
+
+/*
+&usbh2 {
+	status = "okay";
+};
+
+&usbh3 {
+	status = "okay";
+};
+*/
+
+&audmux {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_audmux_2>;
+};
+
+&i2c1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_i2c1_1>;
+	status = "okay";
+
+	stmpe610@0 {
+		compatible = "st,stmpe610";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		reg = <0x44>;
+		irq-over-gpio;
+		irq-gpios = <&gpio5 13 0>;
+		id = <0>;
+		blocks = <0x5>;
+		irq-trigger = <0x1>;
+
+		stmpe_adc {
+			compatible = "st,stmpe-adc";
+		};
+		stmpe_touchscreen {
+			compatible = "st,stmpe-ts";
+			ts,sample-time = <4>;
+			ts,mod-12b = <1>;
+			ts,ref-sel = <0>;
+			ts,adc-freq = <1>;
+			ts,ave-ctrl = <1>;
+			ts,touch-det-delay = <2>;
+			ts,settling = <2>;
+			ts,fraction-z = <7>;
+			ts,i-drive = <1>;
+		};
+/*
+		stmpe_gpio {
+			compatible = "st,stmpe-gpio";
+			gpio-controller;
+			#gpio-cells = <2>;
+		};
+*/
+	};
+};
+
+&i2c2 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_i2c2_1>;
+	status = "okay";
+};
+
+&i2c3 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_i2c3_1>;
+	status = "okay";
+
+	codec: es8328@11 {
+		compatible = "everest,es8328";
+		reg = <0x11>;
+//		VDDA-supply = <&reg_2p5v>;
+//		VDDIO-supply = <&reg_3p3v>;
+	};
+};
+
+&ecspi3 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_ecspi3_1>;
+	fsl,spi-num-chipselects = <3>;
+	status = "okay";
+
+	spidev@0x00 {
+		compatible = "spidev";
+		spi-max-frequency = <30000000>;
+		reg = <0>;
+	};
+};
+
+&pcie {
+	status = "okay";
+};
+
+/*
+&caam {
+	compatible = "fsl,sec-v4.0";
+	#address-cells = <1>;
+	#size-cells = <1>;
+	reg = <0x02100000 0x40000>;
+	ranges = <0 0x02100000 0x40000>;
+
+	sec_jr0: jr@1000 {
+		compatible = "fsl,sec-v4.0-job-ring";
+		reg = <0x100000 0x1000>;
+		interrupts = <0 105 0x04>;
+	};
+
+	sec_jr1: jr@2000 {
+		compatible = "fsl,sec-v4.0-job-ring";
+		reg = <0x200000 0x1000>;
+		interrupts = <0 106 0x04>;
+	};
+};
+*/
+

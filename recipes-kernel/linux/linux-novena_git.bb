@@ -4,11 +4,10 @@ DESCRIPTION = "Linux kernel for the Novena platform"
 COMPATIBLE_MACHINE = "novena"
 
 # Bump MACHINE_KERNEL_PR in the machine config if you update the kernel.
-SRCREV = "f59b51fe3d3092c08d7d554ecb40db24011b2ebc"
-SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git;protocol=git;branch=master \
+SRCREV = "5ffbea593298281ba85a44d768c570b6ea490e0e"
+SRC_URI = "git://github.com/sutajiokousagi/linux.git;protocol=git;branch=novena \
            file://defconfig \
-           file://novena.dts \
-	   file://imx6q.dtsi \
+           file://imx6q-novena.dts \
 "          
 
 LINUX_VERSION ?= "3.6.0"
@@ -33,8 +32,7 @@ kernel_do_compile() {
 }  
 
 do_install_append() {
-    cp -f ${WORKDIR}/novena.dts ${S}/arch/arm/boot/dts
-    cp -f ${WORKDIR}/imx6q.dtsi ${S}/arch/arm/boot/dts
+    cp -f ${WORKDIR}/imx6q-novena.dts ${S}/arch/arm/boot/dts
     echo "Starting do_install with devices [ ${KERNEL_DEVICETREE} ]"
     for DTS_FILE in ${KERNEL_DEVICETREE}; do
         echo "Using DTS file: ${DTS_FILE}"      
@@ -55,13 +53,13 @@ do_install_append() {
 
 do_deploy_append() {
     echo "Append for do_deploy start.  Looking through [ ${KERNEL_DEVICETREE} ]"
-    DTS_BASE_NAME=novena
+    DTS_BASE_NAME=imx6q-novena
     DTB_NAME=`echo ${KERNEL_IMAGE_BASE_NAME} | sed "s/${MACHINE}/${DTS_BASE_NAME}/g"`
-    DTB_SYMLINK_NAME=`echo ${KERNEL_IMAGE_SYMLINK_NAME} | sed "s/${MACHINE}/${DTS_BASE_NAME}/g"`
+    DTB_SYMLINK_NAME=uImage-novena.dtb
     install -d ${DEPLOYDIR}
     install -m 0644 ${S}/${DTS_BASE_NAME} ${DEPLOYDIR}/${DTB_NAME}.dtb
     cd ${DEPLOYDIR}
-    ln -sf ${DTB_NAME}.dtb ${DTB_SYMLINK_NAME}.dtb
+    ln -sf ${DTB_NAME}.dtb ${DTB_SYMLINK_NAME}
 }
 
 FILES_${PN} += "/boot"

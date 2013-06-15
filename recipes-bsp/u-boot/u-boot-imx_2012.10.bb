@@ -9,7 +9,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb \
 SRCREV = "68fbfa63f461e9f13088e0f5af33e3cb0271caec"
 
 PV = "v2012.10+git${SRCPV}"
-PR = "r11"
+PR = "r13"
 
 SRC_URI = "git://github.com/sutajiokousagi/u-boot-imx6.git;branch=u-boot-imx-staging;protocol=git\
            file://boot.script \
