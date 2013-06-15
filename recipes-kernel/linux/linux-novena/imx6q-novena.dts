@@ -11,7 +11,7 @@
  */
 
 /dts-v1/;
-/include/ "imx6q.dtsi"
+#include "imx6q.dtsi"
 
 / {
 	model = "Kosagi Novena (i.MX6 Quad)";
@@ -115,24 +115,34 @@
 	hog {
 		pinctrl_hog: hoggrp {
 			fsl,pins = <
-				996  0x80000000	/* MX6Q_PAD_GPIO_2__GPIO_1_2 */
-				1004 0x80000000	/* MX6Q_PAD_GPIO_4__GPIO_1_4 */
-				121  0x80000000	/* MX6Q_PAD_EIM_D19__GPIO_3_19 */
-				144  0x80000000	/* MX6Q_PAD_EIM_D22__GPIO_3_22 (PCIE_WAKE) */
-				207  0x80000000	/* MX6Q_PAD_EIM_D29__GPIO_3_29 (PCIE_RST) */
-				152  0x80000000	/* MX6Q_PAD_EIM_D23__GPIO_3_23 */
-				1262 0x80000000 /* MX6Q_PAD_SD3_DAT5__GPIO_7_0 */
-				1270 0x1f0b0	/* MX6Q_PAD_SD3_DAT4__GPIO_7_1 */
-				953  0x80000000	/* MX6Q_PAD_GPIO_0__CCM_CLKO */
+				MX6Q_PAD_SD3_DAT5__GPIO7_IO00 0x80000000
+				MX6Q_PAD_SD3_DAT4__GPIO7_IO01 0x1f0b0
+
+				/* uSDHC2 */
+				MX6Q_PAD_GPIO_2__GPIO1_IO02   0x80000000 /* Write protect */
+				MX6Q_PAD_GPIO_4__GPIO1_IO04   0x80000000 /* Card detect */
+
+				/* Ethernet reset */
+				MX6Q_PAD_EIM_D23__GPIO3_IO23  0x80000000
 
 				/* Headphone plug */
-				675  0x80000000 /* MX6Q_PAD_DISP0_DAT21__GPIO_5_15 */
+				MX6Q_PAD_DISP0_DAT21__GPIO5_IO15 0x80000000
+				MX6Q_PAD_GPIO_0__CCM_CLKO1       0x80000000
 
 				/* Touchscreen interrupt */
-				659  0x80000000 /* MX6Q_PAD_DISP0_DAT19__GPIO_5_13 */
+				MX6Q_PAD_DISP0_DAT19__GPIO5_IO13 0x80000000
 
 				/* GPIO LED */
-				121  0x80000000 /* MX6Q_PAD_EIM_D19__GPIO_3_19 */
+				MX6Q_PAD_EIM_D19__GPIO3_IO19  0x80000000
+
+				/* PCI express */
+				MX6Q_PAD_EIM_D22__GPIO3_IO22  0x80000000 /* Wakeup */
+				MX6Q_PAD_EIM_D29__GPIO3_IO29  0x80000000 /* Reset */
+				MX6Q_PAD_GPIO_17__GPIO7_IO12  0x80000000 /* Power On */
+				MX6Q_PAD_EIM_A22__GPIO2_IO16  0x80000000 /* Wifi kill */
+
+				/* FPGA power */
+				MX6Q_PAD_SD1_DAT1__GPIO1_IO17 0x80000000
 			>;
 		};
 	};
@@ -143,7 +153,7 @@
         pinctrl-0 = <&pinctrl_enet_1>;
 	phy-mode = "rgmii";
         phy-reset-gpios = <&gpio3 23 0>;
-	mac-address = [de ad fe ed 01 01];
+	mac-address = [00 0E C6 87 72 01];
 	status = "okay";
 };
 
@@ -173,16 +183,6 @@
 &usbh1 {
 	status = "okay";
 };
-
-/*
-&usbh2 {
-	status = "okay";
-};
-
-&usbh3 {
-	status = "okay";
-};
-*/
 
 &audmux {
 	status = "okay";
@@ -264,6 +264,10 @@
 };
 
 &pcie {
+	power-enable = <&gpio7 12 0>;
+	pcie-reset = <&gpio3 29 0>;
+	wake-up = <&gpio3 22 0>;
+	disable-endpoint = <&gpio2 16 0>;
 	status = "okay";
 };
 

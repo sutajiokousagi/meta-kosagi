@@ -11,7 +11,7 @@ SRC_URI = "git://github.com/sutajiokousagi/linux.git;protocol=git;branch=novena 
 "          
 
 LINUX_VERSION ?= "3.6.0"
-PR = "r5"
+PR = "r6"
 PV = "${LINUX_VERSION}+${PR}+git"
 
 S = "${WORKDIR}/git"
