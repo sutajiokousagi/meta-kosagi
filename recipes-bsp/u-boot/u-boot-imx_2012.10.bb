@@ -6,10 +6,10 @@ LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb \
                     file://README;beginline=1;endline=22;md5=78b195c11cb6ef63e6985140db7d7bab"
 
-SRCREV = "340f1122478245445535476ecbdb36b2a3c739de"
+SRCREV = "68fbfa63f461e9f13088e0f5af33e3cb0271caec"
 
 PV = "v2012.10+git${SRCPV}"
-PR = "r10"
+PR = "r11"
 
 SRC_URI = "git://github.com/sutajiokousagi/u-boot-imx6.git;branch=u-boot-imx-staging;protocol=git\
            file://boot.script \
