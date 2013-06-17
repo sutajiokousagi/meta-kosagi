@@ -50,18 +50,17 @@ do_install_prepend() {
 }
 
 do_install_append() {
+    oe_runmake headers_install INSTALL_HDR_PATH=${D}${exec_prefix}/src/linux-${KERNEL_VERSION} ARCH=$ARCH
     cp -f ${WORKDIR}/imx6q-novena.dts ${S}/arch/arm/boot/dts
     make dtbs
-    install -m 0644 ${DTS_BASE_NAME} ${D}/boot/devicetree-${DTB_SYMLINK_NAME}.dtb
 }
 
 do_deploy_append() {
-    echo "Append for do_deploy start.  Looking through [ ${KERNEL_DEVICETREE} ]"
     DTS_BASE_NAME=imx6q-novena
     DTB_NAME=`echo ${KERNEL_IMAGE_BASE_NAME} | sed "s/${MACHINE}/${DTS_BASE_NAME}/g"`
     DTB_SYMLINK_NAME=uImage-novena.dtb
     install -d ${DEPLOYDIR}
-    install -m 0644 ${S}/${DTS_BASE_NAME} ${DEPLOYDIR}/${DTB_NAME}.dtb
+    install -m 0644 ${S}/arch/arm/boot/dts/${DTS_BASE_NAME}.dtb ${DEPLOYDIR}/${DTB_NAME}.dtb
     cd ${DEPLOYDIR}
     ln -sf ${DTB_NAME}.dtb ${DTB_SYMLINK_NAME}
 }
