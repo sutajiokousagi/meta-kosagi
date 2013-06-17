@@ -32,3 +32,5 @@ IMAGE_INSTALL += " \
     ${XSERVER} \
     kernel-modules \
 "
+
+export IMAGE_BASENAME = "user-image"
