@@ -4,14 +4,14 @@ DESCRIPTION = "Linux kernel for the Novena platform"
 COMPATIBLE_MACHINE = "novena"
 
 # Bump MACHINE_KERNEL_PR in the machine config if you update the kernel.
-SRCREV = "8634b855ebdd36ea0062860e099aff62aff4e52d"
+SRCREV = "276f0847c9356db7b58ec2357c5fcbcf5b017bd3"
 SRC_URI = "git://github.com/sutajiokousagi/linux.git;protocol=git;branch=novena \
            file://defconfig \
            file://imx6q-novena.dts \
 "          
 
 LINUX_VERSION ?= "3.6.0"
-PR = "r6"
+PR = "r7"
 PV = "${LINUX_VERSION}+${PR}+git"
 
 S = "${WORKDIR}/git"
@@ -31,24 +31,28 @@ kernel_do_compile() {
     fi
 }  
 
+do_install_prepend() {
+# Remove duplicates from PATH, which grows large and unweildy.
+# Code ganked from http://unix.stackexchange.com/questions/40749/remove-duplicate-path-entries-with-awk-command
+    set -f         # Turn off globbing, to allow unprotected variable substitutions
+    IFS=:
+    old_PATH=$PATH:; PATH=
+    while [ -n "$old_PATH" ]; do
+      x=${old_PATH%%:*}       # the first remaining entry
+      case $PATH: in
+        *:${x}:*) :;;         # already there
+        *) PATH=$PATH:$x;;    # not there yet
+      esac
+      old_PATH=${old_PATH#*:}
+    done
+    export PATH=${PATH#:}
+    set +f; unset IFS old_PATH x
+}
+
 do_install_append() {
     cp -f ${WORKDIR}/imx6q-novena.dts ${S}/arch/arm/boot/dts
-    echo "Starting do_install with devices [ ${KERNEL_DEVICETREE} ]"
-    for DTS_FILE in ${KERNEL_DEVICETREE}; do
-        echo "Using DTS file: ${DTS_FILE}"      
-        if [ ! -f ${DTS_FILE} ]; then
-            echo "Warning: ${DTS_FILE} is not available!"
-            continue
-        fi
-        DTS_BASE_NAME=`basename ${DTS_FILE} | awk -F "." '{print $1}'`
-        DTB_NAME=`echo ${KERNEL_IMAGE_BASE_NAME} | sed "s/${MACHINE}/${DTS_BASE_NAME}/g"`
-        DTB_SYMLINK_NAME=`echo ${KERNEL_IMAGE_SYMLINK_NAME} | sed "s/${MACHINE}/${DTS_BASE_NAME}/g"`
-        echo "Running in directory "`pwd`
-        echo dtc -I dts -O dtb ${KERNEL_DEVICETREE_FLAGS} -o ${DTS_BASE_NAME} ${DTS_FILE}
-        dtc -I dts -O dtb ${KERNEL_DEVICETREE_FLAGS} -o ${DTS_BASE_NAME} ${DTS_FILE}
-        install -m 0644 ${DTS_BASE_NAME} ${D}/boot/devicetree-${DTB_SYMLINK_NAME}.dtb
-    done
-    echo "Done do_install_append"
+    make dtbs
+    install -m 0644 ${DTS_BASE_NAME} ${D}/boot/devicetree-${DTB_SYMLINK_NAME}.dtb
 }
 
 do_deploy_append() {
