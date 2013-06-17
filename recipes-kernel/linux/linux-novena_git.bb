@@ -10,8 +10,8 @@ SRC_URI = "git://github.com/sutajiokousagi/linux.git;protocol=git;branch=novena 
            file://imx6q-novena.dts \
 "          
 
-LINUX_VERSION ?= "3.6.0"
-PR = "r7"
+LINUX_VERSION ?= "3.10.0"
+PR = "r8"
 PV = "${LINUX_VERSION}+${PR}+git"
 
 S = "${WORKDIR}/git"
