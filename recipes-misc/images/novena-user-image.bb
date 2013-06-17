@@ -34,3 +34,4 @@ IMAGE_INSTALL += " \
 "
 
 export IMAGE_BASENAME = "user-image"
+export IMAGE_ROOTFS_SIZE = "1500000"
