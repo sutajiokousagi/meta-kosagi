@@ -1,20 +1,19 @@
-# Flip on USB power
-i2c dev 1
-i2c mw 08 66 48
+setenv bootsrc mmc
+setenv bootdev 0
+${bootsrc} dev ${bootdev}
 
-# Set CPU voltage to 1.2V (rather than the default of 1.375V)
-i2c mw 08 20 26
-
-mmc dev 1
-if fatload mmc 1 0x12000000 uImage-novena.bin
+if kbd
 then
-	fatload mmc 1 0x11ff0000 uImage-novena.dtb
-	setenv bootargs console=${console},${baudrate} root=${mmcroot}
-	setenv bootargs console=ttymxc1,115200 earlyprintk root=/dev/mmcblk1p2 rootwait rootfstype=ext4
+	setenv rec .recovery
+	setenv bootargs init=/lib/systemd/systemd root=/dev/mmcblk0p2 rootwait rw consoleblank=0 splash
 else
-	mmc dev 0
-	fatload mmc 0 0x12000000 uImage-novena.bin
-	fatload mmc 0 0x11ff0000 uImage-novena.dtb
-	setenv bootargs console=ttymxc1,115200 earlyprintk root=/dev/mmcblk0p2 rootwait rootfstype=ext4
+	setenv bootargs init=/lib/systemd/systemd root=/dev/mmcblk0p2 rootwait rw consoleblank=0 splash ath9k.ps_enable=1
 fi
+
+${bootsrc} dev ${bootdev}
+fatload ${bootsrc} ${bootdev} 0x12000000 uImage${rec}
+fatload ${bootsrc} ${bootdev} 0x11ff0000 uImage${rec}.dtb
+
+fdt addr 0x11ff0000; run prep_gbit; run prep_pcie; run prep_senoko; run prep_es8328; run prep_retina; run prep_pixelqi; run prep_hdmi
+
 bootm 0x12000000 - 0x11ff0000
